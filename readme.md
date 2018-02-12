@@ -31,6 +31,12 @@ php -S localhost:8000
 ```
 then open http://localhost:8000 in your browser
 
+
+## How To Run The Test
+```
+composer test
+```
+
 ## How To Contribute
 
 ### How To Add new route url

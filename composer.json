@@ -1,6 +1,7 @@
 {
     "name": "harryosmar/php-bootstrap",
     "description": "php bootstrapping for simple web app",
+    "optimize-autoloader": true,
     "type": "project",
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -30,5 +31,8 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit -c phpunit.xml"
     }
 }
