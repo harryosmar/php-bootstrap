@@ -38,6 +38,9 @@ composer test
 ```
 
 ## How To Contribute
+- Fork this repo
+- post an issue https://github.com/harryosmar/php-bootstrap/issues
+- create the PR(Pull Request) and wait for the review
 
 ### How To Add new route url
 - add your new route in route collections
