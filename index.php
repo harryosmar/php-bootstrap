@@ -19,9 +19,15 @@ $route = new League\Route\RouteCollection($container);
 
 \PhpBootstrap\Routes::collections($route);
 
-$response = $route->dispatch(
-    $container->get('request'),
-    $container->get('response')
-);
+try {
+    $response = $route->dispatch(
+        $container->get('request'),
+        $container->get('response')
+    );
+} catch (\League\Route\Http\Exception\NotFoundException $exception) {
+    $response = new \Zend\Diactoros\Response();
+    $response->getBody()->write('page not found');
+    $response->withStatus(404);
+}
 
 $container->get('emitter')->emit($response);
