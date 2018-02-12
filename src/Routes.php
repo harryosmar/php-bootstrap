@@ -39,6 +39,8 @@ class Routes
 
         /**
          * Using controller with passing arguments, check the middleware, then return response as json
+         * http://route.thephpleague.com/middleware/
+         * http://route.thephpleague.com/json-strategy/
          */
         $route->map(
         'GET',
