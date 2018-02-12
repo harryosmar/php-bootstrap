@@ -35,12 +35,12 @@ then open http://localhost:8000 in your browser
 
 ### How To Add new route url
 - add your new route in route collections
-[https://github.com/harryosmar/php-bootstrap/blob/master/src/Route.php](https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php)
+[https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php](https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php)
 
 ### How To Add new console Task
 - *Follow documentation* [here](https://symfony.com/doc/current/console.html) : how to create new console task
 - add your console task file to this folder
-[https://github.com/harryosmar/php-bootstrap/tree/master/src/console](https://github.com/harryosmar/php-bootstrap/tree/master/src/Console)
+[https://github.com/harryosmar/php-bootstrap/tree/master/src/Console](https://github.com/harryosmar/php-bootstrap/tree/master/src/Console)
 - then register your console task in [https://github.com/harryosmar/php-bootstrap/blob/master/src/Tasks.php](https://github.com/harryosmar/php-bootstrap/blob/master/src/Tasks.php)
 
 ## Unit Test
