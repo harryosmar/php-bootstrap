@@ -13,6 +13,10 @@ use Symfony\Component\Console\Application;
 
 class Tasks
 {
+    /**
+     * @param Application $application
+     * https://symfony.com/doc/current/console.html
+     */
     final public static function register(Application $application)
     {
         $application->add(new HelloWorld());
