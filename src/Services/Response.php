@@ -8,6 +8,11 @@
 
 namespace PhpBootstrap\Services;
 
+use League\Fractal\Manager;
+use League\Fractal\Pagination\Cursor;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+use League\Fractal\TransformerAbstract;
 use Zend\Diactoros\MessageTrait;
 use InvalidArgumentException;
 
@@ -148,9 +153,78 @@ class Response implements \PhpBootstrap\Contracts\Response
     }
 
     /**
+     * @param $data
+     * @param $code
+     * @param array $headers
+     * @return Response|static
+     */
+    public function withArray(array $data, $code = 200, array $headers = [])
+    {
+        $new = clone $this;
+        $new->setStatusCode($code);
+        $new->getBody()->write(json_encode([$data]));
+        $new = $new->withHeader('Content-Type', 'application/json');
+        $new->headers = array_merge($new->headers, $headers);
+        return $new;
+    }
+
+    /**
+     * @param $data
+     * @param TransformerAbstract|callable $transformer
+     * @param int $code
+     * @param null $resourceKey
+     * @param array $meta
+     * @param array $headers
+     * @return Response
+     */
+    public function withItem($data, $transformer, $code = 200, $resourceKey = null, $meta = [], array $headers = [])
+    {
+        $resource = new Item($data, $transformer, $resourceKey);
+
+        foreach ($meta as $metaKey => $metaValue) {
+            $resource->setMetaValue($metaKey, $metaValue);
+        }
+
+        $manager = new Manager();
+
+        $rootScope = $manager->createData($resource);
+
+        return $this->withArray($rootScope->toArray(), $code, $headers);
+    }
+
+    /**
+     * @param $data
+     * @param TransformerAbstract|callable $transformer
+     * @param int $code
+     * @param null $resourceKey
+     * @param Cursor|null $cursor
+     * @param array $meta
+     * @param array $headers
+     * @return Response
+     */
+    public function withCollection($data, $transformer, $code = 200, $resourceKey = null, Cursor $cursor = null, $meta = [], array $headers = [])
+    {
+        $resource = new Collection($data, $transformer, $resourceKey);
+
+        foreach ($meta as $metaKey => $metaValue) {
+            $resource->setMetaValue($metaKey, $metaValue);
+        }
+
+        if (!is_null($cursor)) {
+            $resource->setCursor($cursor);
+        }
+
+        $manager = new Manager();
+
+        $rootScope = $manager->createData($resource);
+
+        return $this->withArray($rootScope->toArray(), $code, $headers);
+    }
+
+    /**
      * Response for errors
      *
-     * @param string $message
+     * @param string|array $message
      * @param string $code
      * @param array  $headers
      * @return mixed
@@ -209,6 +283,78 @@ class Response implements \PhpBootstrap\Contracts\Response
     public function errorNotFound($message = '', array $headers = [])
     {
         return $this->withError($message, 404, $headers);
+    }
+
+    /**
+     * Generates a response with a 401 HTTP header and a given message.
+     *
+     * @param string $message
+     * @param array $headers
+     * @return mixed
+     */
+    public function errorUnauthorized($message = '', array $headers = [])
+    {
+        return $this->withError($message, 401, $headers);
+    }
+
+    /**
+     * Generates a response with a 400 HTTP header and a given message.
+     *
+     * @param array $message
+     * @param array $headers
+     * @return mixed
+     */
+    public function errorWrongArgs(array $message, array $headers = [])
+    {
+        return $this->withError($message, 400, $headers);
+    }
+
+    /**
+     * Generates a response with a 410 HTTP header and a given message.
+     *
+     * @param string $message
+     * @param array $headers
+     * @return mixed
+     */
+    public function errorGone($message = '', array $headers = [])
+    {
+        return $this->withError($message, 410, $headers);
+    }
+
+    /**
+     * Generates a response with a 405 HTTP header and a given message.
+     *
+     * @param string $message
+     * @param array $headers
+     * @return mixed
+     */
+    public function errorMethodNotAllowed($message = '', array $headers = [])
+    {
+        return $this->withError($message, 405, $headers);
+    }
+
+    /**
+     * Generates a Response with a 431 HTTP header and a given message.
+     *
+     * @param string $message
+     * @param array $headers
+     * @return mixed
+     */
+    public function errorUnwillingToProcess($message = '', array $headers = [])
+    {
+        return $this->withError($message, 431, $headers);
+    }
+
+    /**
+     * Generates a Response with a 422 HTTP header and a given message.
+     *
+     * @param string $message
+     * @param array $headers
+     * @return mixed
+     */
+    public function errorUnprocessable($message = '', array $headers = [])
+    {
+        return $this->withError($message, 422, $headers);
     }
 
     /**

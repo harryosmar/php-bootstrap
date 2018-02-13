@@ -17,7 +17,7 @@ class ExampleMiddleware
     public function checkToken(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         if (!preg_match('/access_token/', $request->getUri()->getQuery())) {
-            return $response->errorForbidden();
+            return $response->errorUnauthorized();
         }
 
         return $next($request, $response);
