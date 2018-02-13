@@ -47,7 +47,10 @@ class Routes
         $route->map(
         'GET',
         '/hello/{name}',
-            [$container->get('helloworldcontroller'), 'sayHi']
+            [
+                $container->get('helloworldcontroller'),
+                'sayHi'
+            ]
         )->setStrategy(new JsonStrategy())
         ->middleware([
             new ExampleMiddleware(), 'checkToken'

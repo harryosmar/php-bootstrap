@@ -15,8 +15,6 @@ $controllerProviders = new \PhpBootstrap\ControllerProviders();
 $container->addServiceProvider($serviceProviders);
 $container->addServiceProvider($controllerProviders);
 
-$container->share('emitter', \Zend\Diactoros\Response\SapiEmitter::class);
-
 $route = new League\Route\RouteCollection($container);
 
 \PhpBootstrap\Routes::collections($route, $container);
@@ -28,9 +26,9 @@ try {
     );
 } catch (\League\Route\Http\Exception\NotFoundException $exception) {
     $response = new \Zend\Diactoros\Response();
-    $response->getBody()->write('page not found');
-    $response->withHeader('Content-Type', 'application/json');
-    $response->withStatus(404);
+    $response->getBody()->write(json_encode(['message' => 'page not found']));
+    $response = $response->withHeader('Content-Type', 'application/json');
+    $response = $response->withStatus(404);
 }
 
 $container->get('emitter')->emit($response);

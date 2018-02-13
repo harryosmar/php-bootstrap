@@ -20,20 +20,28 @@ class ServiceProviders extends AbstractServiceProvider
     protected $provides = [
         'response',
         'request',
+        'emitter',
         HelloInterface::class
     ];
 
     public function register()
     {
         $this->getContainer()->share('response', Response::class);
-        $this->getContainer()->share('request', function () {
-            return ServerRequestFactory::fromGlobals(
-                $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
-            );
-        });
+
+        $this->getContainer()->share(
+            'request',
+            function () {
+                return ServerRequestFactory::fromGlobals(
+                    $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
+                );
+            }
+        );
+
+        $this->getContainer()->share('emitter', \Zend\Diactoros\Response\SapiEmitter::class);
 
         // by registering the helloworld implementation as an alias of it's interface it
         // is easy to swap out for other implementations
-        $this->getContainer()->add(HelloInterface::class, Hello::class);
+        $this->getContainer()
+            ->add(HelloInterface::class, Hello::class);
     }
 }
