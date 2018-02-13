@@ -5,6 +5,7 @@
 - Console
 - Middleware
 - Dependency Injection
+- Response for RESTful APIs
 
 ## Requirements
 - php >= 7.0
