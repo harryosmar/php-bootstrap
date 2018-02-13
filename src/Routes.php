@@ -35,7 +35,7 @@ class Routes
             '/',
             function (ServerRequestInterface $request, ResponseInterface $response) {
                 $response->getBody()->write('<h1>Home Page!</h1>');
-                return $response;
+                return $response->withStatus(200);
             }
         );
 

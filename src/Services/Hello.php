@@ -8,6 +8,7 @@
 
 namespace PhpBootstrap\Services;
 
+use PhpBootstrap\Contracts\Hello as HelloInterface;
 
 class Hello implements HelloInterface
 {

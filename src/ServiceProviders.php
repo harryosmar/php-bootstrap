@@ -10,7 +10,6 @@ namespace PhpBootstrap;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use PhpBootstrap\Services\Hello;
-use PhpBootstrap\Services\HelloInterface;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
 
@@ -21,7 +20,7 @@ class ServiceProviders extends AbstractServiceProvider
         'response',
         'request',
         'emitter',
-        HelloInterface::class
+        \PhpBootstrap\Contracts\Hello::class
     ];
 
     public function register()
@@ -42,6 +41,6 @@ class ServiceProviders extends AbstractServiceProvider
         // by registering the helloworld implementation as an alias of it's interface it
         // is easy to swap out for other implementations
         $this->getContainer()
-            ->add(HelloInterface::class, Hello::class);
+            ->add(\PhpBootstrap\Contracts\Hello::class, Hello::class);
     }
 }

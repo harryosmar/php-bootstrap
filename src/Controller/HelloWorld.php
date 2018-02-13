@@ -8,7 +8,7 @@
 
 namespace PhpBootstrap\Controller;
 
-use PhpBootstrap\Services\HelloInterface;
+use PhpBootstrap\Contracts\Hello as HelloInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

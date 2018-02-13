@@ -3,13 +3,12 @@
  * Created by PhpStorm.
  * User: harry
  * Date: 2/13/18
- * Time: 9:51 AM
+ * Time: 12:53 PM
  */
 
-namespace PhpBootstrap\Services;
+namespace PhpBootstrap\Contracts;
 
-
-interface HelloInterface
+interface Hello
 {
     public function sayHi();
 }

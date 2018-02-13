@@ -10,7 +10,6 @@ namespace PhpBootstrap;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use PhpBootstrap\Controller\HelloWorld;
-use PhpBootstrap\Services\HelloInterface;
 
 /**
  * Class ControllerProviders
@@ -28,7 +27,7 @@ class ControllerProviders extends AbstractServiceProvider
         $this->getContainer()
             ->add('helloworldcontroller', HelloWorld::class)
             ->withArguments([
-                HelloInterface::class
+                \PhpBootstrap\Contracts\Hello::class
             ]);
     }
 }
