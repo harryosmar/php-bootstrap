@@ -51,8 +51,7 @@ class Routes
                 $container->get('helloworldcontroller'),
                 'sayHi'
             ]
-        )->setStrategy(new JsonStrategy())
-        ->middleware([
+        )->middleware([
             new ExampleMiddleware(), 'checkToken'
         ]);
     }

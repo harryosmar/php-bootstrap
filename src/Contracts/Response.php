@@ -9,6 +9,7 @@
 namespace PhpBootstrap\Contracts;
 
 use League\Fractal\Pagination\Cursor;
+use League\Fractal\TransformerAbstract;
 use Psr\Http\Message\ResponseInterface;
 
 interface Response extends ResponseInterface
@@ -23,7 +24,7 @@ interface Response extends ResponseInterface
 
     /**
      * @param $data
-     * @param $transformer
+     * @param TransformerAbstract|callable $transformer
      * @param int $code
      * @param null $resourceKey
      * @param array $meta
@@ -34,7 +35,7 @@ interface Response extends ResponseInterface
 
     /**
      * @param $data
-     * @param $transformer
+     * @param TransformerAbstract|callable $transformer
      * @param int $code
      * @param null $resourceKey
      * @param Cursor|null $cursor

@@ -9,7 +9,7 @@
 namespace PhpBootstrap\Controller;
 
 use PhpBootstrap\Contracts\Hello as HelloInterface;
-use Psr\Http\Message\ResponseInterface;
+use PhpBootstrap\Contracts\Response as ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class HelloWorld
@@ -26,12 +26,11 @@ class HelloWorld
 
     public function sayHi(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
-        /**
-         * http://route.thephpleague.com/json-strategy/
-         */
-        $response->getBody()->write(json_encode([
-            'message' => sprintf('%s %s', $this->hello->sayHi(), $args['name'])
-        ]));
-        return $response->withStatus(200);
+        return $response->withArray(
+            [
+                'message' => sprintf('%s %s', $this->hello->sayHi(), $args['name'])
+            ],
+            200
+        );
     }
 }

@@ -162,7 +162,7 @@ class Response implements \PhpBootstrap\Contracts\Response
     {
         $new = clone $this;
         $new->setStatusCode($code);
-        $new->getBody()->write(json_encode([$data]));
+        $new->getBody()->write(json_encode($data));
         $new = $new->withHeader('Content-Type', 'application/json');
         $new->headers = array_merge($new->headers, $headers);
         return $new;
