@@ -54,9 +54,3 @@ composer test
 [https://github.com/harryosmar/php-bootstrap/tree/master/src/Console](https://github.com/harryosmar/php-bootstrap/tree/master/src/Console)
 - then register your console task in [https://github.com/harryosmar/php-bootstrap/blob/master/src/Tasks.php](https://github.com/harryosmar/php-bootstrap/blob/master/src/Tasks.php)
 
-## Unit Test
-```
-composer test
-```
-
-
