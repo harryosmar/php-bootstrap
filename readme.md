@@ -56,7 +56,7 @@ composer test
 
 ## Unit Test
 ```
-./vendor/bin/phpunit -c phpunit.xml  --debug
+composer test
 ```
 
 
