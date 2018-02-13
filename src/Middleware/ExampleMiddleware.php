@@ -9,7 +9,7 @@
 namespace PhpBootstrap\Middleware;
 
 
-use Psr\Http\Message\ResponseInterface;
+use PhpBootstrap\Contracts\Response as ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ExampleMiddleware
@@ -17,11 +17,7 @@ class ExampleMiddleware
     public function checkToken(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         if (!preg_match('/access_token/', $request->getUri()->getQuery())) {
-            $response->getBody()->write(json_encode([
-                'message' => 'token required'
-            ]));
-
-            return $response->withStatus(400);
+            return $response->errorForbidden();
         }
 
         return $next($request, $response);

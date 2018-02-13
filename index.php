@@ -22,13 +22,11 @@ $route = new League\Route\RouteCollection($container);
 try {
     $response = $route->dispatch(
         $container->get('request'),
-        $container->get('response')
+        $container->get(\PhpBootstrap\Contracts\Response::class)
     );
 } catch (\League\Route\Http\Exception\NotFoundException $exception) {
-    $response = new \Zend\Diactoros\Response();
-    $response->getBody()->write(json_encode(['message' => 'page not found']));
-    $response = $response->withHeader('Content-Type', 'application/json');
-    $response = $response->withStatus(404);
+    $response = new \PhpBootstrap\Services\Response();
+    $response = $response->errorNotFound();
 }
 
 $container->get('emitter')->emit($response);

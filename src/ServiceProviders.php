@@ -10,14 +10,15 @@ namespace PhpBootstrap;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use PhpBootstrap\Services\Hello;
+use PhpBootstrap\Contracts\Response as ResponseInterface;
 use Zend\Diactoros\ServerRequestFactory;
-use Zend\Diactoros\Response;
+use PhpBootstrap\Services\Response;
 
 
 class ServiceProviders extends AbstractServiceProvider
 {
     protected $provides = [
-        'response',
+        ResponseInterface::class,
         'request',
         'emitter',
         \PhpBootstrap\Contracts\Hello::class
@@ -25,7 +26,7 @@ class ServiceProviders extends AbstractServiceProvider
 
     public function register()
     {
-        $this->getContainer()->share('response', Response::class);
+        $this->getContainer()->share(ResponseInterface::class, Response::class);
 
         $this->getContainer()->share(
             'request',
