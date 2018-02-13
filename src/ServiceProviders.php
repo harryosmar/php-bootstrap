@@ -8,20 +8,32 @@
 
 namespace PhpBootstrap;
 
-use League\Container\Container;
+use League\Container\ServiceProvider\AbstractServiceProvider;
+use PhpBootstrap\Services\Hello;
+use PhpBootstrap\Services\HelloInterface;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
 
 
-class ServiceProviders
+class ServiceProviders extends AbstractServiceProvider
 {
-    public function register(Container $container)
+    protected $provides = [
+        'response',
+        'request',
+        HelloInterface::class
+    ];
+
+    public function register()
     {
-        $container->share('response', Response::class);
-        $container->share('request', function () {
+        $this->getContainer()->share('response', Response::class);
+        $this->getContainer()->share('request', function () {
             return ServerRequestFactory::fromGlobals(
                 $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
             );
         });
+
+        // by registering the helloworld implementation as an alias of it's interface it
+        // is easy to swap out for other implementations
+        $this->getContainer()->add(HelloInterface::class, Hello::class);
     }
 }

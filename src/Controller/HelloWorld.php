@@ -8,18 +8,29 @@
 
 namespace PhpBootstrap\Controller;
 
+use PhpBootstrap\Services\HelloInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class HelloWorld
 {
+    /**
+     * @var HelloInterface
+     */
+    private $hello;
+
+    public function __construct(HelloInterface $hello)
+    {
+        $this->hello = $hello;
+    }
+
     public function sayHi(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
         /**
          * http://route.thephpleague.com/json-strategy/
          */
         $response->getBody()->write(json_encode([
-            'message' => 'Hi ' . $args['name']
+            'message' => sprintf('%s %s', $this->hello->sayHi(), $args['name'])
         ]));
         return $response->withStatus(200);
     }

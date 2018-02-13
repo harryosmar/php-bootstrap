@@ -9,8 +9,8 @@
 namespace PhpBootstrap;
 
 
+use League\Container\Container;
 use League\Route\Strategy\JsonStrategy;
-use PhpBootstrap\Controller\HelloWorld;
 use PhpBootstrap\Middleware\ExampleMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,9 +21,11 @@ class Routes
     /**
      * @param RouteCollection $route
      * http://route.thephpleague.com/
+     * @param Container $container
      */
     final public static function collections(
-        RouteCollection $route
+        RouteCollection $route,
+        Container $container
     ) {
         /**
          * Using simple object closure
@@ -45,8 +47,9 @@ class Routes
         $route->map(
         'GET',
         '/hello/{name}',
-            [new HelloWorld(), 'sayHi']
-        )->setStrategy(new JsonStrategy())->middleware([
+            [$container->get('helloworldcontroller'), 'sayHi']
+        )->setStrategy(new JsonStrategy())
+        ->middleware([
             new ExampleMiddleware(), 'checkToken'
         ]);
     }

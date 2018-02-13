@@ -3,7 +3,8 @@
 ## Features
 - Routing
 - Console
-
+- Middleware
+- Dependency Injection
 
 ## Requirements
 - php >= 7.0
