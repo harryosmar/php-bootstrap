@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "93510414746df22e5147bf44e45a1c6e",
+    "content-hash": "1bcde72a226bfaab858f3adae6c9cb5f",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -36,6 +36,59 @@
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
             "time": "2017-02-14T19:40:03+00:00"
+        },
+        {
+            "name": "harryosmar/php-restful-api-response",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/harryosmar/php-restful-api-response.git",
+                "reference": "03f799e608a67356b2de24edd72e5d001a66683d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/03f799e608a67356b2de24edd72e5d001a66683d",
+                "reference": "03f799e608a67356b2de24edd72e5d001a66683d",
+                "shasum": ""
+            },
+            "require": {
+                "league/fractal": "^0.17.0",
+                "php": ">=5.6",
+                "zendframework/zend-diactoros": "^1.7"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "~1.4",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "~5.7"
+            },
+            "type": "library, composer-plugin",
+            "autoload": {
+                "psr-4": {
+                    "PhpRestfulApiResponse\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "PhpRestfulApiResponse\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "./vendor/bin/phpunit -c phpunit.xml"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Harry Sitohang",
+                    "email": "harryosmarsitohang@gmail.com"
+                }
+            ],
+            "description": "php restful api response implement PSR-7: HTTP message interfaces",
+            "support": {
+                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.0.0",
+                "issues": "https://github.com/harryosmar/php-restful-api-response/issues"
+            },
+            "time": "2018-02-14T07:13:33+00:00"
         },
         {
             "name": "league/container",
