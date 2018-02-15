@@ -1,6 +1,7 @@
 # Php Bootstrapping
 
 [![Latest Version](https://img.shields.io/github/release/harryosmar/php-bootstrap.svg?style=flat-square)](https://github.com/harryosmar/php-bootstrap/releases)
+[![Build Status](https://travis-ci.org/harryosmar/php-bootstrap.svg?branch=master)](https://travis-ci.org/harryosmar/php-bootstrap)
 
 ## Features
 - Routing
