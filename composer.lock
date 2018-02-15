@@ -39,21 +39,21 @@
         },
         {
             "name": "harryosmar/php-restful-api-response",
-            "version": "v1.0.0",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/harryosmar/php-restful-api-response.git",
-                "reference": "03f799e608a67356b2de24edd72e5d001a66683d"
+                "reference": "cd45d71cb000017881ff72cfb91813471b120b40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/03f799e608a67356b2de24edd72e5d001a66683d",
-                "reference": "03f799e608a67356b2de24edd72e5d001a66683d",
+                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/cd45d71cb000017881ff72cfb91813471b120b40",
+                "reference": "cd45d71cb000017881ff72cfb91813471b120b40",
                 "shasum": ""
             },
             "require": {
                 "league/fractal": "^0.17.0",
-                "php": ">=5.6",
+                "php": ">=7.0",
                 "zendframework/zend-diactoros": "^1.7"
             },
             "require-dev": {
@@ -74,7 +74,7 @@
             },
             "scripts": {
                 "test": [
-                    "./vendor/bin/phpunit -c phpunit.xml"
+                    "./vendor/bin/phpunit -c phpunit.xml --coverage-text --coverage-clover=coverage.clover --debug"
                 ]
             },
             "authors": [
@@ -85,10 +85,10 @@
             ],
             "description": "php restful api response implement PSR-7: HTTP message interfaces",
             "support": {
-                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.0.0",
+                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.0.2",
                 "issues": "https://github.com/harryosmar/php-restful-api-response/issues"
             },
-            "time": "2018-02-14T07:13:33+00:00"
+            "time": "2018-02-15T05:23:10+00:00"
         },
         {
             "name": "league/container",
