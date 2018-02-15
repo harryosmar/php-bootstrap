@@ -1,5 +1,7 @@
 # Php Bootstrapping
 
+[![Latest Version](https://img.shields.io/github/release/harryosmar/php-bootstrap.svg?style=flat-square)](https://github.com/harryosmar/php-bootstrap/releases)
+
 ## Features
 - Routing
 - Console
