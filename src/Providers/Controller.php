@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: harry
- * Date: 2/13/18
- * Time: 11:53 AM
+ * Date: 2/15/18
+ * Time: 12:47 PM
  */
 
-namespace PhpBootstrap;
+namespace PhpBootstrap\Providers;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use PhpBootstrap\Controller\HelloWorld;
@@ -16,7 +16,7 @@ use PhpBootstrap\Controller\HelloWorld;
  * @package PhpBootstrap
  * Handle all your controller dependency injection here
  */
-class ControllerProviders extends AbstractServiceProvider
+class Controller extends AbstractServiceProvider
 {
     protected $provides = [
         'helloworldcontroller'

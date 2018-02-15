@@ -10,7 +10,6 @@ namespace PhpBootstrap;
 
 
 use League\Container\Container;
-use League\Route\Strategy\JsonStrategy;
 use PhpBootstrap\Middleware\ExampleMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
