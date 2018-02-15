@@ -3,7 +3,6 @@
 [![Latest Version](https://img.shields.io/github/release/harryosmar/php-bootstrap.svg?style=flat-square)](https://github.com/harryosmar/php-bootstrap/releases)
 [![Build Status](https://travis-ci.org/harryosmar/php-bootstrap.svg?branch=master)](https://travis-ci.org/harryosmar/php-bootstrap)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/badges/build.png?b=master)](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/build-status/master)
 
 ## Features
