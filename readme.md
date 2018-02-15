@@ -18,10 +18,13 @@
 
 ## How To Setup
 ```
-git@github.com:harryosmar/php-bootstrap.git
+git clone git@github.com:harryosmar/php-bootstrap.git
 cd php-bootstrap
 composer install
 ```
+
+or just download the [latest release](https://github.com/harryosmar/php-bootstrap/releases)
+
 
 ## How To Use
 *Show Task List*
