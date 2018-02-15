@@ -17,7 +17,7 @@
 
     <filter>
         <whitelist>
-            <directory suffix="Test.php">./src</directory>
+            <directory>./src</directory>
         </whitelist>
     </filter>
 
