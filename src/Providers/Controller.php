@@ -9,7 +9,7 @@
 namespace PhpBootstrap\Providers;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use PhpBootstrap\Controller\HelloWorld;
+use PhpBootstrap\Controller\HelloWorld as ControllerHelloWorld;
 
 /**
  * Class ControllerProviders
@@ -22,12 +22,25 @@ class Controller extends AbstractServiceProvider
         'helloworldcontroller'
     ];
 
+    /**
+     * register all controller here
+     */
     public function register()
     {
+        $this->registerController('helloworldcontroller', ControllerHelloWorld::class);
+    }
+
+    /**
+     * @param string $alias
+     * @param $concrete
+     * auto inject DI container to controller constructor
+     */
+    private function registerController(string $alias, $concrete)
+    {
         $this->getContainer()
-            ->add('helloworldcontroller', HelloWorld::class)
+            ->add($alias, $concrete)
             ->withArguments([
-                \PhpBootstrap\Contracts\Hello::class
+                $this->getContainer()
             ]);
     }
 }

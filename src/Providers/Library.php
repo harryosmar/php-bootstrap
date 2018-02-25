@@ -28,6 +28,9 @@ class Library extends AbstractServiceProvider
         \PhpBootstrap\Contracts\Hello::class
     ];
 
+    /**
+     * register all your library to DI container
+     */
     public function register()
     {
         $this->getContainer()->share(ResponseInterface::class, Response::class);
