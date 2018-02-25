@@ -12,23 +12,16 @@ use PhpBootstrap\Contracts\Hello as HelloInterface;
 use PhpBootstrap\Contracts\Response as ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class HelloWorld
+class HelloWorld extends Base
 {
-    /**
-     * @var HelloInterface
-     */
-    private $hello;
-
-    public function __construct(HelloInterface $hello)
-    {
-        $this->hello = $hello;
-    }
-
     public function sayHi(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
+        /** @var HelloInterface $hello */
+        $hello = $this->container->get(HelloInterface::class);
+
         return $response->withArray(
             [
-                'message' => sprintf('%s %s', $this->hello->sayHi(), $args['name'])
+                'message' => sprintf('%s %s', $hello->sayHi(), $args['name'])
             ],
             200
         );

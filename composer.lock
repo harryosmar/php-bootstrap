@@ -39,16 +39,16 @@
         },
         {
             "name": "harryosmar/php-restful-api-response",
-            "version": "v1.0.2",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/harryosmar/php-restful-api-response.git",
-                "reference": "cd45d71cb000017881ff72cfb91813471b120b40"
+                "reference": "29fb571e6677e2b22c67062314dedfaf08aac4b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/cd45d71cb000017881ff72cfb91813471b120b40",
-                "reference": "cd45d71cb000017881ff72cfb91813471b120b40",
+                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/29fb571e6677e2b22c67062314dedfaf08aac4b5",
+                "reference": "29fb571e6677e2b22c67062314dedfaf08aac4b5",
                 "shasum": ""
             },
             "require": {
@@ -85,10 +85,10 @@
             ],
             "description": "php restful api response implement PSR-7: HTTP message interfaces",
             "support": {
-                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.0.2",
+                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.0.4",
                 "issues": "https://github.com/harryosmar/php-restful-api-response/issues"
             },
-            "time": "2018-02-15T05:23:10+00:00"
+            "time": "2018-02-18T11:14:37+00:00"
         },
         {
             "name": "league/container",
@@ -285,20 +285,23 @@
         },
         {
             "name": "nikic/fast-route",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/FastRoute.git",
-                "reference": "b5f95749071c82a8e0f58586987627054400cdf6"
+                "reference": "181d480e08d9476e61381e04a71b34dc0432e812"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/b5f95749071c82a8e0f58586987627054400cdf6",
-                "reference": "b5f95749071c82a8e0f58586987627054400cdf6",
+                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/181d480e08d9476e61381e04a71b34dc0432e812",
+                "reference": "181d480e08d9476e61381e04a71b34dc0432e812",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35|~5.7"
             },
             "type": "library",
             "autoload": {
@@ -324,7 +327,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-01-19T11:35:12+00:00"
+            "time": "2018-02-13T20:26:39+00:00"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -1221,16 +1224,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.4",
+            "version": "1.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be"
+                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
-                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
                 "shasum": ""
             },
             "require": {
@@ -1280,7 +1283,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-11T18:49:29+00:00"
+            "time": "2018-02-19T10:16:54+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
