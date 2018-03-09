@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bcde72a226bfaab858f3adae6c9cb5f",
+    "content-hash": "744c26c03d72d603c433229af97f82da",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -39,16 +39,16 @@
         },
         {
             "name": "harryosmar/php-restful-api-response",
-            "version": "v1.0.4",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/harryosmar/php-restful-api-response.git",
-                "reference": "29fb571e6677e2b22c67062314dedfaf08aac4b5"
+                "reference": "1615abb8288a2d4e280462bc4c8098c319ea96c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/29fb571e6677e2b22c67062314dedfaf08aac4b5",
-                "reference": "29fb571e6677e2b22c67062314dedfaf08aac4b5",
+                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/1615abb8288a2d4e280462bc4c8098c319ea96c0",
+                "reference": "1615abb8288a2d4e280462bc4c8098c319ea96c0",
                 "shasum": ""
             },
             "require": {
@@ -61,7 +61,7 @@
                 "mockery/mockery": "0.9.*",
                 "phpunit/phpunit": "~5.7"
             },
-            "type": "library, composer-plugin",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "PhpRestfulApiResponse\\": "src/"
@@ -85,10 +85,10 @@
             ],
             "description": "php restful api response implement PSR-7: HTTP message interfaces",
             "support": {
-                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.0.4",
+                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.1.2",
                 "issues": "https://github.com/harryosmar/php-restful-api-response/issues"
             },
-            "time": "2018-02-18T11:14:37+00:00"
+            "time": "2018-03-09T04:11:51+00:00"
         },
         {
             "name": "league/container",
