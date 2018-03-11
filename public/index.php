@@ -6,7 +6,7 @@
  * Time: 3:46 PM
  */
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /**
  * instantiate the dependency injection $container object
