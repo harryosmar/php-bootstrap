@@ -35,11 +35,5 @@
     },
     "scripts": {
         "test": "./vendor/bin/phpunit -c phpunit.xml"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:harryosmar/php-restful-api-response.git"
-        }
-    ]
+    }
 }

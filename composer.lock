@@ -39,16 +39,16 @@
         },
         {
             "name": "harryosmar/php-restful-api-response",
-            "version": "v1.1.2",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/harryosmar/php-restful-api-response.git",
-                "reference": "1615abb8288a2d4e280462bc4c8098c319ea96c0"
+                "reference": "b543a07cc0dae74adc5a12f3f0a31d3fe4907c73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/1615abb8288a2d4e280462bc4c8098c319ea96c0",
-                "reference": "1615abb8288a2d4e280462bc4c8098c319ea96c0",
+                "url": "https://api.github.com/repos/harryosmar/php-restful-api-response/zipball/b543a07cc0dae74adc5a12f3f0a31d3fe4907c73",
+                "reference": "b543a07cc0dae74adc5a12f3f0a31d3fe4907c73",
                 "shasum": ""
             },
             "require": {
@@ -85,10 +85,10 @@
             ],
             "description": "php restful api response implement PSR-7: HTTP message interfaces",
             "support": {
-                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.1.2",
+                "source": "https://github.com/harryosmar/php-restful-api-response/tree/v1.1.3",
                 "issues": "https://github.com/harryosmar/php-restful-api-response/issues"
             },
-            "time": "2018-03-09T04:11:51+00:00"
+            "time": "2018-03-11T02:24:52+00:00"
         },
         {
             "name": "league/container",
