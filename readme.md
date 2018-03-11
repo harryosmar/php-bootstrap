@@ -37,7 +37,7 @@ php launcher.php app:helloword
 ```
 *Open endpoints url*
 ```
-php -S localhost:8000
+php -S localhost:8000 -t public
 ```
 then open http://localhost:8000 in your browser
 
