@@ -11,5 +11,14 @@ require __DIR__ . '/vendor/autoload.php';
 use Symfony\Component\Console\Application;
 
 $application = new Application();
-\PhpBootstrap\Tasks::register($application);
+
+$container = new League\Container\Container;
+
+/**
+ * Register all service providers to $container
+ */
+\PhpBootstrap\ServiceProviders::register($container);
+
+\PhpBootstrap\Tasks::register($application, $container);
+
 $application->run();

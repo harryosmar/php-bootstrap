@@ -33,7 +33,7 @@ php launcher.php list
 ```
 *Run Task* `php launcher.php {taskname}`
 ```
-php launcher.php app:helloword
+php console.php app:helloworld
 ```
 *Open endpoints url*
 ```

@@ -8,6 +8,7 @@
 
 namespace PhpBootstrap;
 
+use League\Container\Container;
 use PhpBootstrap\Console\HelloWorld;
 use Symfony\Component\Console\Application;
 
@@ -17,7 +18,7 @@ class Tasks
      * @param Application $application
      * https://symfony.com/doc/current/console.html
      */
-    final public static function register(Application $application)
+    final public static function register(Application $application, Container $container)
     {
         $application->add(new HelloWorld());
     }
