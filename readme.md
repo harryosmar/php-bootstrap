@@ -29,7 +29,7 @@ or just download the [latest release](https://github.com/harryosmar/php-bootstra
 ## How To Use
 *Show Task List*
 ```
-php launcher.php list
+php console.php list
 ```
 *Run Task* `php launcher.php {taskname}`
 ```
