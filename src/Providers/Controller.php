@@ -10,6 +10,7 @@ namespace PhpBootstrap\Providers;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
 use PhpBootstrap\Controller\HelloWorld as ControllerHelloWorld;
+use PhpBootstrap\Controller\Seo as ControllerSeo;
 
 /**
  * Class ControllerProviders
@@ -19,7 +20,8 @@ use PhpBootstrap\Controller\HelloWorld as ControllerHelloWorld;
 class Controller extends AbstractServiceProvider
 {
     protected $provides = [
-        'helloworldcontroller'
+        'helloworldcontroller',
+        'seocontroller'
     ];
 
     /**
@@ -28,6 +30,7 @@ class Controller extends AbstractServiceProvider
     public function register()
     {
         $this->registerController('helloworldcontroller', ControllerHelloWorld::class);
+        $this->registerController('seocontroller', ControllerSeo::class);
     }
 
     /**

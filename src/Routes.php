@@ -53,5 +53,15 @@ class Routes
         )->middleware([
             new ExampleMiddleware(), 'checkToken'
         ]);
+
+
+        $route->map(
+            'GET',
+            '/seo',
+            [
+                $container->get('seocontroller'),
+                'index'
+            ]
+        );
     }
 }
