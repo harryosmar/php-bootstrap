@@ -8,6 +8,7 @@
 
 namespace PhpBootstrap\Controller;
 
+use FluentPDO;
 use League\Csv\AbstractCsv;
 use League\Csv\Reader;
 use Psr\Http\Message\ResponseInterface;
@@ -17,43 +18,125 @@ class Seo extends Base
 {
     const TABLE_NAME = 'seo_labels';
 
-    public function index(ServerRequestInterface $request, ResponseInterface $response, array $args)
+    const LANG = 'id';
+
+    const NEWLINE = "\n";
+
+    public function index(ServerRequestInterface $request, ResponseInterface $response)
     {
-        /** @var \FluentPDO $pdo */
+        /** @var FluentPDO $pdo */
         $pdo = $this->container->get('pdo');
 
-        $data = $pdo->from(self::TABLE_NAME)->limit(10)->fetchAll();
+        $csv = $this->getCsvData($this->getCsvDataPath('seo-week1.csv'));
 
-        $csv = $this->getCsvData($this->getCsvDataPath('seo-week2.csv'));
-
-        $sqlQuery = '';
+        $sqlQueryUpdate = '';
+        $sqlQueryInsert = '';
         foreach ($csv as $record) {
-            $sqlQuery .= $this->generateRecordUpdateQuery($record) . "\n";
+            $this->generateRecordUpdateOrInsertQuery($pdo, $record, $sqlQueryUpdate, $sqlQueryInsert);
         }
+        $sqlQueryInsert = $this->cleanSqlInsert($sqlQueryInsert);
 
-        $response->getBody()->write($sqlQuery);
+        $response->getBody()->write($sqlQueryInsert . $sqlQueryUpdate);
         return $response;
     }
 
     /**
-     * @param array $record
+     * @param string $sqlQueryInsert
      * @return string
      */
-    private function generateRecordUpdateQuery($record)
+    private function cleanSqlInsert($sqlQueryInsert)
     {
-        return sprintf(
+        $sqlQueryInsert = trim($sqlQueryInsert, "\n,");
+        $sqlQueryInsert .= !empty($sqlQueryInsert) ? ';' : '';
+        return $sqlQueryInsert;
+    }
+
+    /**
+     * @param FluentPDO $pdo
+     * @param array $newRecord
+     * @param string $sqlQueryUpdate
+     * @param string $sqlQueryInsert
+     */
+    private function generateRecordUpdateOrInsertQuery(FluentPDO $pdo, $newRecord, &$sqlQueryUpdate, &$sqlQueryInsert)
+    {
+        /** @var \SelectQuery $query */
+        $query = $pdo->from(self::TABLE_NAME)
+            ->where(
+                sprintf('region_id %s ?', $this->getWhereSeparator($newRecord['region_id'])),
+                $this->getValue($newRecord['region_id'])
+            )->where(
+                sprintf('subregion_id %s ?', $this->getWhereSeparator($newRecord['subregion_id'])),
+                $this->getValue($newRecord['subregion_id'])
+            )->where(
+                sprintf('category_id %s ?', $this->getWhereSeparator($newRecord['category_id'])),
+                $this->getValue($newRecord['category_id'])
+            );
+
+        $oldRecord = $query->fetchAll();
+
+        /**
+         * Insert Query
+         */
+        if (!$oldRecord) {
+            $queryValues = sprintf(
+                "('%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, '%s', '%s', '%s', %s, %s, %s, %s, %s),%s",
+                self::LANG,
+                $newRecord['region_id'],
+                $newRecord['subregion_id'],
+                $newRecord['category_id'],
+                $newRecord['fake_category'],
+                $newRecord['page'],
+                $newRecord['offer_seek'],
+                $newRecord['tag'],
+                $newRecord['tag_value'],
+                $newRecord['phrase'],
+                $newRecord['page_title'],
+                $newRecord['page_h1'],
+                $newRecord['page_description'],
+                $newRecord['page_name'],
+                $newRecord['seo_text'],
+                $newRecord['seo_tags'],
+                $newRecord['seo_places'],
+                $newRecord['page_keywords'],
+                self::NEWLINE
+            );
+
+            if (empty($sqlQueryInsert)) {
+                $sqlQueryInsert .= sprintf("INSERT INTO `seo_labels` (`lang`, `region_id`, `subregion_id`, `category_id`, `fake_category`, `page`, `offer_seek`, `tag`, `tag_value`, `phrase`, `page_title`, `page_h1`, `page_description`, `page_name`, `seo_text`, `seo_tags`, `seo_places`, `page_keywords`)%s VALUES%s %s",
+                    self::NEWLINE,
+                    self::NEWLINE,
+                    $queryValues
+                );
+            } else {
+                $sqlQueryInsert .= sprintf(" %s", $queryValues);
+            }
+        }
+
+        /**
+         * Update Query
+         */
+        $sqlQueryUpdate .= sprintf(
             "UPDATE `%s` SET `page_title` = '%s', `page_h1` = '%s', `page_description` = '%s' WHERE `region_id` %s %s AND `subregion_id` %s %s AND `category_id` %s %s;",
             self::TABLE_NAME,
-            $record['page_title'],
-            $record['page_h1'],
-            $record['page_description'],
-            $this->getWhereSeparator($record['region_id']),
-            $record['region_id'],
-            $this->getWhereSeparator($record['subregion_id']),
-            $record['subregion_id'],
-            $this->getWhereSeparator($record['category_id']),
-            $record['category_id']
-        );
+            $newRecord['page_title'],
+            $newRecord['page_h1'],
+            $newRecord['page_description'],
+            $this->getWhereSeparator($newRecord['region_id']),
+            $newRecord['region_id'],
+            $this->getWhereSeparator($newRecord['subregion_id']),
+            $newRecord['subregion_id'],
+            $this->getWhereSeparator($newRecord['category_id']),
+            $newRecord['category_id']
+        ) . self::NEWLINE;
+    }
+
+    /**
+     * @param string|null $value
+     * @return string
+     */
+    private function getValue($value)
+    {
+        return $value === 'NULL' ? NULL : $value;
     }
 
     /**
