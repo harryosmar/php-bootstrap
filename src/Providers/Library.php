@@ -8,9 +8,12 @@
 
 namespace PhpBootstrap\Providers;
 
+use FluentPDO;
 use League\Container\ServiceProvider\AbstractServiceProvider;
+use PDO;
 use PhpBootstrap\Services\Hello;
 use PhpBootstrap\Contracts\Response as ResponseInterface;
+use Zend\Config\Config;
 use Zend\Diactoros\ServerRequestFactory;
 use PhpBootstrap\Services\Response;
 
@@ -48,5 +51,35 @@ class Library extends AbstractServiceProvider
         // is easy to swap out for other implementations
         $this->getContainer()
             ->add(\PhpBootstrap\Contracts\Hello::class, Hello::class);
+
+        /**
+         * Config
+         */
+        $this->getContainer()
+            ->share('config', function() {
+                return new Config(require_once implode(DIRECTORY_SEPARATOR, [dirname(__FILE__), '..', 'config.php']));
+            });
+
+        /**
+         * PDO MySQL
+         */
+        $this->getContainer()->share('pdo', function() {
+            /** @var Config $config */
+            $config = $this->getContainer()->get('config');
+
+            $pdo = new PDO(
+                sprintf(
+                    "%s:dbname=%s;host=%s;port=%d",
+                    $config->database->adapter,
+                    $config->database->params->dbname,
+                    $config->database->params->host,
+                    $config->database->params->port
+                ),
+                $config->database->params->username,
+                $config->database->params->password
+            );
+
+            return new FluentPDO($pdo);
+        });
     }
 }

@@ -19,6 +19,11 @@ class Seo extends Base
 
     public function index(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
+        /** @var \FluentPDO $pdo */
+        $pdo = $this->container->get('pdo');
+
+        $data = $pdo->from(self::TABLE_NAME)->limit(10)->fetchAll();
+
         $csv = $this->getCsvData($this->getCsvDataPath('seo-week2.csv'));
 
         $sqlQuery = '';

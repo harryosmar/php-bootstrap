@@ -17,7 +17,9 @@
         "phpcollection/phpcollection": "^0.5.0",
         "zendframework/zend-diactoros": "^1.7",
         "harryosmar/php-restful-api-response": "^1.1",
-        "league/csv": "^9.0"
+        "league/csv": "^9.0",
+        "envms/fluentpdo": "1.1.*",
+        "zendframework/zend-config": "^3.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -27,7 +29,10 @@
     "autoload": {
         "psr-4": {
             "PhpBootstrap\\": "src/"
-        }
+        },
+        "files": [
+            "src/config.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
