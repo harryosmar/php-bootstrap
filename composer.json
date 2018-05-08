@@ -29,10 +29,7 @@
     "autoload": {
         "psr-4": {
             "PhpBootstrap\\": "src/"
-        },
-        "files": [
-            "src/config.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
