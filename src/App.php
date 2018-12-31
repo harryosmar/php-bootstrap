@@ -47,7 +47,7 @@ class App
     final public function handle()
     {
       $request = $this->container->get('request');
-      $response = $this->container->get(\PhpBootstrap\Contracts\Response::class);
+      $response = $this->container->get('response');
 
       try {
           return $this->route->dispatch(
