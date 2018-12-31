@@ -9,6 +9,7 @@
 namespace PhpBootstrap;
 
 use League\Container\Container;
+use League\Route\Http\Exception\NotFoundException;
 use League\Route\RouteCollection;
 
 class App
@@ -17,15 +18,26 @@ class App
      * @var Container
      */
     private $container;
+
     /**
      * @var RouteCollection
      */
     private $route;
 
+    /**
+    * @var CoreServiceProvider
+    */
+    private $serviceProvider;
+
+    /**
+     * App constructor.
+     *
+     * @param Container $container
+     */
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->registerContainer();
+        $this->registerServices();
         $this->registerRoute();
     }
 
@@ -34,29 +46,28 @@ class App
      */
     final public function handle()
     {
-        try {
-            /**
-             * process the request
-             */
-            return $this->route->dispatch(
-                $this->container->get('request'),
-                $this->container->get(\PhpBootstrap\Contracts\Response::class)
+      $request = $this->container->get('request');
+      $response = $this->container->get(\PhpBootstrap\Contracts\Response::class);
+
+      try {
+          return $this->route->dispatch(
+              $request,
+              $response
             );
-        } catch (\League\Route\Http\Exception\NotFoundException $exception) {
+        } catch (NotFoundException $exception) {
             /**
              * handle 404
              */
-            $response = new \PhpBootstrap\Services\Response();
             return $response->errorNotFound();
         }
     }
 
-    private function registerContainer()
+    /**
+     * @return Container
+     */
+    final public function getContainer(): Container
     {
-        /**
-         * Register all service providers to $container
-         */
-        \PhpBootstrap\ServiceProviders::register($this->container);
+        return $this->container;
     }
 
     private function registerRoute()
@@ -72,11 +83,9 @@ class App
         \PhpBootstrap\Routes::collections($this->route, $this->container);
     }
 
-    /**
-     * @return Container
-     */
-    public function getContainer(): Container
+    private function registerServices()
     {
-        return $this->container;
+        $this->serviceProvider = new CoreServiceProvider();
+        $this->container->addServiceProvider($this->serviceProvider);
     }
 }

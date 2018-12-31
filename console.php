@@ -17,7 +17,7 @@ $container = new League\Container\Container;
 /**
  * Register all service providers to $container
  */
-\PhpBootstrap\ServiceProviders::register($container);
+$container->addServiceProvider(new \PhpBootstrap\CoreServiceProvider);
 
 \PhpBootstrap\Tasks::register($application, $container);
 
