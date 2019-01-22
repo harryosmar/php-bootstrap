@@ -10,7 +10,7 @@
 - Console
 - Middleware
 - Dependency Injection
-- Response for RESTful APIs https://github.com/harryosmar/php-restful-api-response
+- [Response for RESTful APIs](https://packagist.org/packages/harryosmar/php-restful-api-response)
 
 ## How to get started
 
@@ -31,15 +31,7 @@ or just download the [latest release](https://github.com/harryosmar/php-bootstra
 
 
 ## How To Use
-*Show Task List*
-```
-php console.php list
-```
-*Run Task* `php launcher.php {taskname}`
-```
-php console.php app:helloworld
-```
-*Open endpoints url*
+*Open application url*
 ```
 php -S localhost:8000 -t public
 ```
@@ -55,14 +47,4 @@ composer test
 - Fork this repo
 - post an issue https://github.com/harryosmar/php-bootstrap/issues
 - create the PR(Pull Request) and wait for the review
-
-### How To Add new route url
-- add your new route in route collections
-[https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php](https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php)
-
-### How To Add new console Task
-- *Follow documentation* [here](https://symfony.com/doc/current/console.html) : how to create new console task
-- add your console task file to this folder
-[https://github.com/harryosmar/php-bootstrap/tree/master/src/Console](https://github.com/harryosmar/php-bootstrap/tree/master/src/Console)
-- then register your console task in [https://github.com/harryosmar/php-bootstrap/blob/master/src/Tasks.php](https://github.com/harryosmar/php-bootstrap/blob/master/src/Tasks.php)
 
