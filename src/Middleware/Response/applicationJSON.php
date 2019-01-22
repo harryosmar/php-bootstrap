@@ -1,17 +1,17 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: harry
- * Date: 2/12/18
- * Time: 5:48 PM
+ * User: root
+ * Date: 1/22/19
+ * Time: 10:22 PM
  */
 
-namespace PhpBootstrap\Middleware;
+namespace PhpBootstrap\Middleware\Response;
 
 use PhpBootstrap\Contracts\Response as ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ExampleMiddleware
+class applicationJSON
 {
     /**
      * @param ServerRequestInterface $request
@@ -21,10 +21,6 @@ class ExampleMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
-        if (!preg_match('/access_token/', $request->getUri()->getQuery())) {
-            return $response->errorUnauthorized();
-        }
-
-        return $next($request, $response);
+        return $next($request, $response->asJSON());
     }
 }

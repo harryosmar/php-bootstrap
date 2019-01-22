@@ -9,8 +9,7 @@
 namespace PhpBootstrap;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
-use PhpBootstrap\Contracts\Response;
-use PhpBootstrap\Services\Response as ResponseService;
+use PhpBootstrap\Services\Response;
 use Zend\Diactoros\ServerRequestFactory;
 
 class CoreServiceProvider extends AbstractServiceProvider
@@ -19,7 +18,7 @@ class CoreServiceProvider extends AbstractServiceProvider
      * @var array
      */
     protected $provides = [
-        Response::class,
+        'response',
         'request',
         'emitter',
     ];
@@ -29,7 +28,7 @@ class CoreServiceProvider extends AbstractServiceProvider
      */
     public function register()
     {
-        $this->getContainer()->share(Response::class, ResponseService::class);
+        $this->getContainer()->share('response', Response::class);
 
         $this->getContainer()->share(
             'request',
