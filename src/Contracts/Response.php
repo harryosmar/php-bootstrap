@@ -18,5 +18,13 @@ use PhpRestfulApiResponse\Contracts\PhpRestfulApiResponse;
  */
 interface Response extends PhpRestfulApiResponse
 {
+    /**
+     * @return Response
+     */
+    public function asJSON() : self;
 
+    /**
+     * @return Response
+     */
+    public function asHTML() : self;
 }

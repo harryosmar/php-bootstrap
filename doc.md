@@ -1,14 +1,15 @@
 # links
 
 - [Application Flow](#application-flow)
-  - [Folder Structure](#folder-structure)
+    - [Folder Structure](#folder-structure)
 - [DI Container](#di-container)
+    - [Custom Service Provider](#Custom Service Provider)
 - [Routing](#routing)
-  - [Closure](#closure)
-  - [Class Controller](#class-controller)
+    - [Closure](#closure)
+    - [Class Controller](#class-controller)
 - [Middleware](#middleware)
 - [Console](#console)
-  - [How to add new console task](#how-to-add-new-console-task)
+    - [How to add new console task](#how-to-add-new-console-task)
 
 
 ## Application Flow
@@ -16,7 +17,7 @@
 `*` optional
 
 ```
-public/index.php => App.php::handle => Routing::dispatch => *Middleware => Controller => *Middleware => Response
+public/index.php => App.php::handle => Routing::dispatch => *Middleware:before => Controller => *Middleware:after => Response
 ```
 
 - `App.php` will register all services to the DI Container, and register all the routing paths.
@@ -40,73 +41,49 @@ src/
 
 ## DI Container
 
-There is 2 type of Service Provider :
+There is 2 types of *Service Provider* :
+
 1. `CoreServiceProvider.php`. This only contained the common services like : `request`, `response`, `respose emitter`.
 2. `src/ServiceProviders/`, add your new custom service here.
 
-How To add new custom service.
+### Custom Service Provider
 
-For example We Have a controller named `HelloWorld`.
+> Question : How to add *new custom service provider*.
 
-We want to use new service class `Hello` which provides function `sayHi()`.
+> Answer : Create new php class in [ServiceProviders DIR](https://github.com/harryosmar/php-bootstrap/tree/master/src/ServiceProviders) which extend `\League\Container\ServiceProvider\AbstractServiceProvider`
 
-So We create this file `src/Services/Hello.php`
+> Example : We Have a controller named [`HelloWorld`](https://github.com/harryosmar/php-bootstrap/blob/master/src/ServiceProviders/Controller/HelloWorld.php), inside this controller, we want to use service `Hello`. This `Hello` service is a PHP class, that we will retrieve from DI container. The objective is to use `Hello` service function `sayHi()`.  
 
+> How to do it
+
+
+1. *create the service* : [`src/Services/Hello.php`](https://github.com/harryosmar/php-bootstrap/blob/master/src/Services/Hello.php)
+
+2. *create the service provider* [`src/ServiceProviders/Controller/HelloWorld.php`](https://github.com/harryosmar/php-bootstrap/blob/master/src/ServiceProviders/Controller/HelloWorld.php)
+
+3. *update the [routes](https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php) file*. Add new service provider to DI `container` before passed it to `controller` constructor. See [example](#example-of-step-3).
+
+4.  Later in [`HelloWorld` controller](https://github.com/harryosmar/php-bootstrap/blob/master/src/Controller/HelloWorld.php#L24), retrieve service [`Hello`](https://github.com/harryosmar/php-bootstrap/blob/master/src/Contracts/Hello.php) from container, then call `sayHi()` function. See [example](#example-of-step-4)
+
+###### example of step 3
 ```php
 <?php
-namespace PhpBootstrap\Services;
-
-class Hello implements \PhpBootstrap\Contracts\Hello
-{
-    public function sayHi()
-    {
-        return 'Hello';
-    }
-}
+$route->map(
+'GET',
+'/hello/{name}',
+  [
+      new \PhpBootstrap\Controller\HelloWorld(
+          $container->addServiceProvider(new \PhpBootstrap\ServiceProviders\Controller\HelloWorld)
+      ),
+      'sayHi'
+  ]
+);
 ```
 
-Then Create custom service provider for controller `HelloWorld`.
-at `src/ServiceProviders/Controller/HelloWorld.php`. In this file, You can add all services, needed to be available in controller `HelloWorld`, through the container.
+###### example of step 4
 
 ```php
 <?php
-namespace PhpBootstrap\ServiceProviders\Controller;
-
-use League\Container\ServiceProvider\AbstractServiceProvider;
-use PhpBootstrap\Services\Hello;
-
-class HelloWorld extends AbstractServiceProvider {
-
-  protected $provides = [
-      \PhpBootstrap\Contracts\Hello::class
-  ];
-  
-  public function register() {
-    $this->getContainer()
-        ->add(\PhpBootstrap\Contracts\Hello::class, Hello::class);
-  }
-}
-```
-
-Later in `HelloWorld` controller, you can access service `Hello` from container.
-```php
-<?php
-namespace PhpBootstrap\ServiceProviders\Controller;
-
-use PhpBootstrap\Contracts\Response;
-use Psr\Http\Message\ServerRequestInterface;
-
-class HelloWorld extends Base {
-  
-  public function index(ServerRequestInterface $request, Response $response, array $args) {
-    $hello = $this->container->get(PhpBootstrap\Contracts\Hello::class);
-    return $response->withArray(
-        [
-            'message' => sprintf('%s %s', $hello->sayHi(), $args['name'])
-        ],
-        200
-    );
-  }
-  
-}
+$hello = $this->container->get(\PhpBootstrap\Contracts\Hello::class);
+$hello->sayHi();
 ```

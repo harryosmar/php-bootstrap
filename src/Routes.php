@@ -9,59 +9,60 @@
 namespace PhpBootstrap;
 
 use League\Container\Container;
+use League\Route\RouteGroup;
 use PhpBootstrap\Controller\HelloWorld;
 use PhpBootstrap\Middleware\ExampleMiddleware;
 use PhpBootstrap\Contracts\Response as ResponseInterface;
+use PhpBootstrap\Middleware\Response\applicationJSON;
+use PhpBootstrap\Middleware\Response\textHTML;
 use Psr\Http\Message\ServerRequestInterface;
 use League\Route\RouteCollection;
 
 class Routes
 {
-    /**
-     * @param RouteCollection $route
-     * http://route.thephpleague.com/
-     * @param Container $container
-     */
     final public static function collections(
         RouteCollection $route,
         Container $container
     ) {
-      $route->map(
-          'GET',
-          '/',
-          function (ServerRequestInterface $request, ResponseInterface $response) {
-            return $response->withArray(['Hello' => 'World']);
-          }
-      );
+        /**
+         * Content-Type: application/json
+         */
+        $route->group('', function (RouteGroup $route) use ($container) {
+            $route->map(
+                'GET',
+                '/',
+                function (ServerRequestInterface $request, ResponseInterface $response) {
+                    return $response->withArray(['Hello' => 'World']);
+                }
+            );
+
+            $route->map(
+                'GET',
+                '/hello/{name}',
+                [
+                    new HelloWorld(
+                        $container->addServiceProvider(new \PhpBootstrap\ServiceProviders\Controller\HelloWorld)
+                    ),
+                    'sayHi'
+                ]
+            )->middleware(new ExampleMiddleware());
+
+        })->middleware(new applicationJSON());
 
         /**
-         * @TODO Need to create new ResponseInterface to provide content-type `text/html`
+         * Content-Type: text/html
          */
-//      $route->map(
-//          'GET',
-//          '/html',
-//          function (ServerRequestInterface $request, ResponseInterface $response) {
-//              $response->getBody()->write('<h1>Home Page!</h1>');
-//              return $response->withStatus(200);
-//          }
-//      );
+        $route->group('', function (RouteGroup $route) use ($container) {
 
-      /**
-       * Using controller with passing arguments, check the middleware, then return response as json
-       * http://route.thephpleague.com/middleware/
-       * http://route.thephpleague.com/json-strategy/
-       */
-      $route->map(
-      'GET',
-      '/hello/{name}',
-          [
-              new HelloWorld(
-                  $container->addServiceProvider(new \PhpBootstrap\ServiceProviders\Controller\HelloWorld)
-              ),
-              'sayHi'
-          ]
-      )->middleware([
-          new ExampleMiddleware(), 'checkToken'
-      ]);
+            $route->map(
+                'GET',
+                '/html',
+                function (ServerRequestInterface $request, ResponseInterface $response) {
+                    $response->getBody()->write('<h1>Home Page!</h1>');
+                    return $response->withStatus(200);
+                }
+            );
+
+        })->middleware(new textHTML());
     }
 }
