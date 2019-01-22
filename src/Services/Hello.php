@@ -12,7 +12,10 @@ use PhpBootstrap\Contracts\Hello as HelloInterface;
 
 class Hello implements HelloInterface
 {
-    public function sayHi()
+    /**
+     * @return string
+     */
+    public function sayHi() : string
     {
         return 'Hello';
     }
