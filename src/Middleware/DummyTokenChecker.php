@@ -11,7 +11,7 @@ namespace PhpBootstrap\Middleware;
 use PhpBootstrap\Contracts\Response as ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ExampleMiddleware
+class DummyTokenChecker
 {
     /**
      * @param ServerRequestInterface $request

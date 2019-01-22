@@ -11,8 +11,8 @@ namespace PhpBootstrap;
 use League\Container\Container;
 use League\Route\RouteGroup;
 use PhpBootstrap\Controller\HelloWorld;
-use PhpBootstrap\Middleware\ExampleMiddleware;
-use PhpBootstrap\Contracts\Response as ResponseInterface;
+use PhpBootstrap\Middleware\DummyTokenChecker;
+use PhpBootstrap\Contracts\Response;
 use PhpBootstrap\Middleware\Response\applicationJSON;
 use PhpBootstrap\Middleware\Response\textHTML;
 use Psr\Http\Message\ServerRequestInterface;
@@ -31,7 +31,7 @@ class Routes
             $route->map(
                 'GET',
                 '/',
-                function (ServerRequestInterface $request, ResponseInterface $response) {
+                function (ServerRequestInterface $request, Response $response) {
                     return $response->withArray(['Hello' => 'World']);
                 }
             );
@@ -45,7 +45,7 @@ class Routes
                     ),
                     'sayHi'
                 ]
-            )->middleware(new ExampleMiddleware());
+            )->middleware(new DummyTokenChecker());
 
         })->middleware(new applicationJSON());
 
@@ -57,7 +57,7 @@ class Routes
             $route->map(
                 'GET',
                 '/html',
-                function (ServerRequestInterface $request, ResponseInterface $response) {
+                function (ServerRequestInterface $request, Response $response) {
                     $response->getBody()->write('<h1>Home Page!</h1>');
                     return $response->withStatus(200);
                 }
