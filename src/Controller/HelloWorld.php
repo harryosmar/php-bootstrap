@@ -14,6 +14,12 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class HelloWorld extends Base
 {
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface|\Zend\Diactoros\Response
+     */
     public function sayHi(ServerRequestInterface $request, ResponseInterface $response, array $args)
     {
         /** @var HelloInterface $hello */

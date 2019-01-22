@@ -15,5 +15,8 @@ namespace PhpBootstrap\Contracts;
  */
 interface Hello
 {
-    public function sayHi();
+    /**
+     * @return string
+     */
+    public function sayHi() : string ;
 }
