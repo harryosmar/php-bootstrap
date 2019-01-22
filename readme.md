@@ -12,9 +12,9 @@
 - Dependency Injection
 - [Response for RESTful APIs](https://packagist.org/packages/harryosmar/php-restful-api-response)
 
-## How to get started
+## documentation
 
-read this [documentation](https://github.com/harryosmar/php-bootstrap/blob/master/doc.md).
+Fllow this [documentation link](https://github.com/harryosmar/php-bootstrap/blob/master/doc.md).
 
 ## Requirements
 - php >= 7.0
