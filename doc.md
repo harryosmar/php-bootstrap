@@ -61,7 +61,7 @@ There is 2 types of *Service Provider* :
 
 2. *create the service provider* [`src/ServiceProviders/Controller/HelloWorld.php`](https://github.com/harryosmar/php-bootstrap/blob/master/src/ServiceProviders/Controller/HelloWorld.php)
 
-3. *update the [routes](https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php) file*. Add new service provider to DI `container` before passed it to `controller` constructor. See [example](#example-of-step-3).
+3. *update the [routes](https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php) file*. Add new service provider to DI `container`, before passed the `container` to `controller` constructor. See [example](#example-of-step-3).
 
 4.  Later in [`HelloWorld` controller](https://github.com/harryosmar/php-bootstrap/blob/master/src/Controller/HelloWorld.php#L24), retrieve service [`Hello`](https://github.com/harryosmar/php-bootstrap/blob/master/src/Contracts/Hello.php) from container, then call `sayHi()` function. See [example](#example-of-step-4).
 
@@ -139,7 +139,7 @@ We have this [`DummyTokenChecker`](https://github.com/harryosmar/php-bootstrap/b
 URL?access_token=abcdef
 ```
 
-If `access_token` is not provided in the `uri` then it will return `errorUnauthorized` `401` response.
+If `access_token` is not provided in the `uri`, then it will return `errorUnauthorized` `401` response.
 
 ```json
 {
@@ -151,7 +151,7 @@ If `access_token` is not provided in the `uri` then it will return `errorUnautho
 }
 ```
 
-If valid then the request will be continued to the [`HelloWorld`](https://github.com/harryosmar/php-bootstrap/blob/master/src/Controller/HelloWorld.php) controller.
+If valid, then the request will be continued to the [`HelloWorld`](https://github.com/harryosmar/php-bootstrap/blob/master/src/Controller/HelloWorld.php) controller.
 
 How the [Route]((https://github.com/harryosmar/php-bootstrap/blob/master/src/Routes.php)) code looks like.
 
