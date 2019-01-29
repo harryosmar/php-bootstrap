@@ -2,6 +2,7 @@
 * [Simple Messaging](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/readme.md)
 * [Works Queues](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/readme.md)
 
+![publisher & multipe consumer](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/public/images/simple-queue.jpg)
 
 ## Setup
 
