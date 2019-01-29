@@ -46,14 +46,12 @@ class Consumer extends Command
         /** @var MessagingSystem $messagingSystem */
         $messagingSystem = $this->container->get(MessagingSystem::class);
 
-        $output->writeln([
-            '[*] Waiting for messages. To exit press CTRL+C\n',
-        ]);
+        $output->write('[*] Waiting for messages. To exit press CTRL+C\n', true);
 
         $messagingSystem->consume('hello', function (AMQPMessage $msg) use ($output) {
-            $output->writeln([
-                '[*] Received ' . $msg->body,
-            ]);
+            $output->write('[*] Received ' . $msg->body, true);
+            sleep(substr_count($msg->body, '.'));
+            $output->write('[*] Done', true);
         });
     }
 }

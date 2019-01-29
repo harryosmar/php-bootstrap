@@ -12,6 +12,7 @@ namespace PhpBootstrap\Console\Messaging;
 use League\Container\Container;
 use PhpBootstrap\Contracts\MessagingSystem;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -32,7 +33,8 @@ class Publisher extends Command
     protected function configure()
     {
         $this->setName('app:message:publish')
-            ->setDescription('messaging system publisher');
+            ->setDescription('the argument last "." count will used as n seconds sleep process')
+            ->addArgument('data', InputArgument::REQUIRED, 'Please provide argument data');
     }
 
     /**
@@ -42,13 +44,15 @@ class Publisher extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $data = $input->getArgument('data');
+
         /** @var MessagingSystem $messagingSystem */
         $messagingSystem = $this->container->get(MessagingSystem::class);
 
-        $messagingSystem->publish('hello', 'Hello World!');
+        $messagingSystem->publish('hello', $data);
 
         $output->writeln([
-            '[x] Sent \'Hello World!',
+            '[x] Sent ' . $data,
         ]);
     }
 }

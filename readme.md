@@ -30,7 +30,7 @@ Pre-Steps :
 
 `Consume` steps:
 1. declare `queue`
-2. `consume` message
+2. `consume` message, with `n` seconds sleep time
 3. `channel` waiting... for another incoming message
 
 Check the actual code of [`RabbitMQMessagingSystem.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Services/RabbitMQMessagingSystem.php)
@@ -42,18 +42,22 @@ Check the actual code of [`RabbitMQMessagingSystem.php`](https://github.com/harr
 [`Publisher.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Console/Messaging/Publisher.php)
 
 ```
-php console.php app:message:publish
+php console.php app:message:publish <data>
 ```
+
+eq : `php console.php app:message:publish "A very hard task which takes two seconds.."`
 
 output
 
 ```
-[x] Sent 'Hello World!
+[x] Sent <data>
 ```
 
 ### start consumer
 
 [`Consumer.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Console/Messaging/Consumer.php)
+
+Repeat this command for creating a new `consumer`
 
 ```
 php console.php app:message:consume
@@ -63,8 +67,11 @@ output
 
 ```
 [*] Waiting for messages. To exit press CTRL+C\n
-[*] Received Hello World!
+[*] Received A very hard task which takes two seconds..
+[*] Done
 ```
+
+![publisher & multipe consumer](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/public/images/queue-multi-workers.jpg)
 
 ## Web Doc
 
