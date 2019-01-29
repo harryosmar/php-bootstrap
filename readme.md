@@ -2,6 +2,7 @@
 * [Simple Messaging](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/readme.md)
 * [Works Queues](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/readme.md)
 
+![publisher & multipe consumer](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/public/images/queue-multi-workers.jpg)
 
 ## Setup
 
@@ -70,8 +71,6 @@ output
 [*] Received A very hard task which takes two seconds..
 [*] Done
 ```
-
-![publisher & multipe consumer](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/public/images/queue-multi-workers.jpg)
 
 ## Web Doc
 
