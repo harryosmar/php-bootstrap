@@ -1,0 +1,5 @@
+/vendor
+/.idea
+auth.json
+reports/
+coverage.clover
