@@ -33,13 +33,13 @@ Pre-Steps :
 2. `consume` message, with `n` seconds sleep time
 3. `channel` waiting... for another incoming message
 
-Check the actual code of [`RabbitMQMessagingSystem.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Services/RabbitMQMessagingSystem.php)
+Check the actual code of [`RabbitMQMessagingSystem.php`](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/src/Services/RabbitMQMessagingSystem.php)
 
 ## How to use
 
 ### start publisher
 
-[`Publisher.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Console/Messaging/Publisher.php)
+[`Publisher.php`](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/src/Console/Messaging/Publisher.php)
 
 ```
 php console.php app:message:publish <data>
@@ -55,7 +55,7 @@ output
 
 ### start consumer
 
-[`Consumer.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Console/Messaging/Consumer.php)
+[`Consumer.php`](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/src/Console/Messaging/Consumer.php)
 
 Repeat this command for creating a new `consumer`
 
@@ -71,9 +71,9 @@ output
 [*] Done
 ```
 
-![publisher & multipe consumer](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/public/images/queue-multi-workers.jpg)
+![publisher & multipe consumer](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/public/images/queue-multi-workers.jpg)
 
 ## Web Doc
 
-- [intro](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/web.md)
-- [doc](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/doc.md)
+- [intro](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/web.md)
+- [doc](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/doc.md)
