@@ -1,50 +1,72 @@
-# Php Bootstrapping
+# Messaging
+* [Simple Messaging](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/readme.md)
+* [Works Queues](https://github.com/harryosmar/php-bootstrap/blob/queue-rabbitmq/readme.md)
 
-[![Latest Version](https://img.shields.io/github/release/harryosmar/php-bootstrap.svg?style=flat-square)](https://github.com/harryosmar/php-bootstrap/releases)
-[![Build Status](https://travis-ci.org/harryosmar/php-bootstrap.svg?branch=master)](https://travis-ci.org/harryosmar/php-bootstrap)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/badges/build.png?b=master)](https://scrutinizer-ci.com/g/harryosmar/php-bootstrap/build-status/master)
 
-## Features
-- Routing
-- Console
-- Middleware
-- Dependency Injection
-- [Response for RESTful APIs](https://packagist.org/packages/harryosmar/php-restful-api-response)
+## Setup
 
-## documentation
-
-Fllow this [documentation link](https://github.com/harryosmar/php-bootstrap/blob/master/doc.md).
-
-## Requirements
-- php >= 7.0
-- composer https://getcomposer.org/download/
-
-## How To Setup
 ```
-git clone git@github.com:harryosmar/php-bootstrap.git
-cd php-bootstrap
+git clone --single-branch --branch simple-rabbitmq git@github.com:harryosmar/php-bootstrap.git
 composer install
+docker-compose up
 ```
 
-or just download the [latest release](https://github.com/harryosmar/php-bootstrap/releases)
+## Simple RabbitMQ Message-Broker Flow
 
-
-## How To Use
-*Open application url*
 ```
-php -S localhost:8000 -t public
-```
-then open http://localhost:8000 in your browser
-
-
-## How To Run The Test
-```
-composer test
+channel > queue > publish/consume message
 ```
 
-## How To Contribute
-- Fork this repo
-- post an issue https://github.com/harryosmar/php-bootstrap/issues
-- create the PR(Pull Request) and wait for the review
+Pre-Steps :
+1. create `AMQPStreamConnection`
+2. create connection `channel`
 
+
+`Publish` steps:
+1. declare `queue`
+2. `publish` message to declared `queue`
+3. close `channel`
+4. close `AMQPStreamConnection`
+
+`Consume` steps:
+1. declare `queue`
+2. `consume` message
+3. `channel` waiting... for another incoming message
+
+Check the actual code of [`RabbitMQMessagingSystem.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Services/RabbitMQMessagingSystem.php)
+
+## How to use
+
+### start publisher
+
+[`Publisher.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Console/Messaging/Publisher.php)
+
+```
+php console.php app:message:publish
+```
+
+output
+
+```
+[x] Sent 'Hello World!
+```
+
+### start consumer
+
+[`Consumer.php`](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/src/Console/Messaging/Consumer.php)
+
+```
+php console.php app:message:consume
+```
+
+output
+
+```
+[*] Waiting for messages. To exit press CTRL+C\n
+[*] Received Hello World!
+```
+
+## Web Doc
+
+- [intro](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/web.md)
+- [doc](https://github.com/harryosmar/php-bootstrap/blob/simple-rabbitmq/doc.md)
