@@ -48,7 +48,7 @@ class Consumer extends Command
 
         $output->write('[*] Waiting for messages. To exit press CTRL+C\n', true);
 
-        $messagingSystem->consume('hello', function (AMQPMessage $msg) use ($output) {
+        $messagingSystem->consume('task_queue', function (AMQPMessage $msg) use ($output) {
             $output->write('[*] Received ' . $msg->body, true);
             sleep(substr_count($msg->body, '.'));
             $output->write('[*] Done', true);

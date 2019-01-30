@@ -36,7 +36,10 @@ class RabbitMQMessagingSystem implements MessagingSystem
     public function publish(string $queueName, string $message)
     {
         $this->channel->queue_declare($queueName, false, false, false, false);
-        $msg = new AMQPMessage($message);
+        $msg = new AMQPMessage(
+            $message,
+            array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
+        );
         $this->channel->basic_publish($msg, '', 'hello');
         $this->channel->close();
         $this->connection->close();
@@ -44,14 +47,14 @@ class RabbitMQMessagingSystem implements MessagingSystem
 
     public function consume(string $queueName, \Closure $closure)
     {
-        $this->channel->queue_declare($queueName, false, false, false, false);
+        $this->channel->queue_declare($queueName, false, true, false, false);
 
         /** @var AMQPMessage $msg */
         $callback = function ($msg) use ($closure) {
             $closure->call($this, $msg);
         };
 
-        $this->channel->basic_consume($queueName    , '', false, true, false, false, $callback);
+        $this->channel->basic_consume($queueName    , '', true, false, false, false, $callback);
 
         while (count($this->channel->callbacks)) {
             $this->channel->wait();

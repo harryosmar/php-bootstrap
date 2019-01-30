@@ -49,7 +49,7 @@ class Publisher extends Command
         /** @var MessagingSystem $messagingSystem */
         $messagingSystem = $this->container->get(MessagingSystem::class);
 
-        $messagingSystem->publish('hello', $data);
+        $messagingSystem->publish('task_queue', $data);
 
         $output->writeln([
             '[x] Sent ' . $data,
