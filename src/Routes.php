@@ -15,6 +15,7 @@ use PhpBootstrap\Middleware\DummyTokenChecker;
 use PhpBootstrap\Contracts\Response;
 use PhpBootstrap\Middleware\Response\applicationJSON;
 use PhpBootstrap\Middleware\Response\textHTML;
+use PhpBootstrap\Presentation\Model\EvaluatorResult;
 use Psr\Http\Message\ServerRequestInterface;
 use League\Route\RouteCollection;
 use WF\Shared\Merchandising\Centralized_Validation_Service\Data_Interface\Empty_Additional_Data;
@@ -53,7 +54,7 @@ class Routes {
       /**
        * @OA\Post(
        *     path="/validation",
-       *     @OA\Response(response="200", description="Validation using evaluator")
+       *     @OA\Response(response="200", description="Validation using evaluator", @OA\JsonContent(ref="#/components/schemas/EvaluatorResult"))
        * )
        */
       $route->map(
@@ -86,11 +87,9 @@ class Routes {
             $inputDataContext = new Input_Data_Context($dataRecord, $additionalData);
             $evaluatorResult  = $evaluatorTree->evaluate($inputDataContext);
 
-            return $response->withArray(
-                [
-                    'status' => $evaluatorResult->getResult(),
-                    'failure_tags' => $evaluatorResult->getViolatedEvaluatorsFailureTags()->getFailureTags()
-                ]
+            return $response->withItem(
+                new EvaluatorResult($evaluatorResult),
+                new \PhpBootstrap\Presentation\Transfomer\EvaluatorResult()
             );
           }
       );
