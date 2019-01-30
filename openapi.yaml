@@ -8,6 +8,15 @@ paths:
       responses:
         '404':
           description: 'Page not found'
+  /books:
+    get:
+      responses:
+        '200':
+          description: 'list of books'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Books'
   /validation:
     post:
       responses:
@@ -19,6 +28,37 @@ paths:
                 $ref: '#/components/schemas/EvaluatorResult'
 components:
   schemas:
+    Book:
+      properties:
+        title:
+          description: 'The book title'
+          type: string
+        price:
+          description: 'The price'
+          type: number
+          format: float
+        published_year:
+          description: 'The published year'
+          type: integer
+        author:
+          $ref: '#/components/schemas/BookAuthor'
+      type: object
+    BookAuthor:
+      properties:
+        name:
+          description: 'The author name'
+          type: string
+        email:
+          description: 'The author email'
+          type: string
+      type: object
+    Books:
+      properties:
+        data:
+          description: 'List of Book'
+          items:
+            $ref: '#/components/schemas/Book'
+      type: object
     EvaluatorResult:
       properties:
         status:

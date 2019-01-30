@@ -15,6 +15,8 @@ use PhpBootstrap\Middleware\DummyTokenChecker;
 use PhpBootstrap\Contracts\Response;
 use PhpBootstrap\Middleware\Response\applicationJSON;
 use PhpBootstrap\Middleware\Response\textHTML;
+use PhpBootstrap\Presentation\Model\Books;
+use PhpBootstrap\Presentation\Model\Book;
 use PhpBootstrap\Presentation\Model\EvaluatorResult;
 use Psr\Http\Message\ServerRequestInterface;
 use League\Route\RouteCollection;
@@ -48,6 +50,29 @@ class Routes {
           '/',
           function (ServerRequestInterface $request, Response $response) {
             return $response->errorNotFound();
+          }
+      );
+
+      /**
+       * @OA\Get(
+       *     path="/books",
+       *     @OA\Response(response="200", description="list of books", @OA\JsonContent(ref="#/components/schemas/Books"))
+       * )
+       */
+      $route->map(
+          'GET',
+          '/books',
+          function (ServerRequestInterface $request, Response $response) {
+            return $response->withCollection(
+                new Books(
+                    [
+                        new Book('harry', 'harryosmarsitohang', 'how to be a ninja', 100000, 2017),
+                        new Book('harry', 'harryosmarsitohang', 'how to be a mage', 500000, 2016),
+                        new Book('harry', 'harryosmarsitohang', 'how to be a samurai', 25000, 2000),
+                    ]
+                ),
+                new \PhpBootstrap\Presentation\Transfomer\Books()
+            );
           }
       );
 
