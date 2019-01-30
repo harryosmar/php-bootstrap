@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: VRP
+  version: '0.1'
+paths:
+  /:
+    get:
+      responses:
+        '404':
+          description: 'Page not found'
+  /validation:
+    post:
+      responses:
+        '200':
+          description: 'Validation using evaluator'
+components:
+  schemas:
+    Literal_Evaluator_Result:
+      properties:
+        literalValue:
+          description: 'The literal value'
+          type: string
+        evaluator:
+          $ref: '#/components/schemas/Boolean_Evaluator'
+      type: object
+    Boolean_Evaluator:
+      properties:
+        failureTag:
+          description: 'The failure tag'
+          type: string
+      type: object

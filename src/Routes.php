@@ -34,11 +34,14 @@ class Routes {
       RouteCollection $route,
       Container $container
   ) {
-    /**
-     * Content-Type: application/json
-     */
     $route->group(
         '', function (RouteGroup $route) use ($container) {
+      /**
+       * @OA\Get(
+       *     path="/",
+       *     @OA\Response(response="404", description="Page not found")
+       * )
+       */
       $route->map(
           'GET',
           '/',
@@ -47,6 +50,12 @@ class Routes {
           }
       );
 
+      /**
+       * @OA\Post(
+       *     path="/validation",
+       *     @OA\Response(response="200", description="Validation using evaluator")
+       * )
+       */
       $route->map(
           'POST',
           '/validation',
