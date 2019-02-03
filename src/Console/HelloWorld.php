@@ -17,7 +17,7 @@ class HelloWorld extends Command
     protected function configure()
     {
         $this->setName('app:helloworld')
-            ->setDescription('testing redis by set new key `hello-world`.')
+            ->setDescription('testing redis by set new keys `hello-world`.')
             ->setHelp('This command only for testing...');
     }
 

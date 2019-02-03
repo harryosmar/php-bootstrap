@@ -11,6 +11,7 @@ namespace PhpBootstrap;
 use League\Container\Container;
 use League\Route\RouteGroup;
 use PhpBootstrap\Controller\HelloWorld;
+use PhpBootstrap\Controller\Token;
 use PhpBootstrap\Middleware\DummyTokenChecker;
 use PhpBootstrap\Contracts\Response;
 use PhpBootstrap\Middleware\Response\applicationJSON;
@@ -34,6 +35,17 @@ class Routes
                 function (ServerRequestInterface $request, Response $response) {
                     return $response->withArray(['Hello' => 'World']);
                 }
+            );
+
+            $route->map(
+                'POST',
+                '/token',
+                [
+                    new Token(
+                        $container->addServiceProvider(new \PhpBootstrap\ServiceProviders\Controller\TokenGenerator)
+                    ),
+                    'store'
+                ]
             );
 
             $route->map(
