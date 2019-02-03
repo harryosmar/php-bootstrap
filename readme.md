@@ -53,3 +53,8 @@ Check this file [TokenTest.php](https://github.com/harryosmar/php-bootstrap/blob
 ```
 composer test
 ```
+
+## Links
+- https://github.com/lcobucci/jwt/blob/3.2/README.md
+- https://jwt.io/#debugger-io
+- https://tools.ietf.org/html/rfc751

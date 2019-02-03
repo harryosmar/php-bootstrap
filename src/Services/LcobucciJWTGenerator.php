@@ -31,7 +31,7 @@ class LcobucciJWTGenerator implements \PhpBootstrap\Contracts\TokenGenerator
         $keychain = new Keychain();
         $builder = new Builder();
         /**
-         * @TODO implement `JID` & `expiration` time
+         * @TODO implement `JTI/JWT ID` & `expiration` time
          */
         $builder->setIssuer(self::ISSUER)
         ->setAudience($audience)
