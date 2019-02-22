@@ -3,6 +3,8 @@
 * [How To Build](#how-to-build)
   * [Console](#console)
   * [Composer](#composer)
+* [How To Validate yml content](#how-to-validate-yml-content)
+* [Links](#links)
 
 ## How To Build 
 
@@ -28,3 +30,12 @@ output
 ```
 
 This will create `openapi.yaml` in root directory.
+
+## How To Validate yml content
+
+1. Goto `https://editor.swagger.io/`
+2. Then replace the swaggerEditor content with the content of `openapi.yaml` file.
+
+## Links
+- https://github.com/zircote/swagger-php/blob/master/README.md
+- http://zircote.com/swagger-php/Getting-started.html
