@@ -1,4 +1,4 @@
 <?php
 /**
- * @OA\Info(title="VRP", version="0.1")
+ * @OA\Info(title="Example", version="0.1")
  */

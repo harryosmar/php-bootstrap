@@ -10,14 +10,14 @@
 
 ## Swagger.io Screenshot
 
-![swagger.io screenshot](https://github.com/harryosmar/php-bootstrap/blob/swagger/public/images/swagger.io.png)
+![swagger.io screenshot](https://github.com/harryosmar/php-bootstrap/blob/swagger/public/images/swagger.io-v2.png)
 
 ## Yaml Content
 
 ```yaml
 openapi: 3.0.0
 info:
-  title: VRP
+  title: Example
   version: '0.1'
 paths:
   /:
