@@ -1,46 +1,30 @@
-# PHP VRP Engine Server
+# Swagger openapi 3.0 Example
 
-## Requirements
-- docker
-- docker-compose
+* [How To Build](#how-to-build)
+  * [Console](#console)
+  * [Composer](#composer)
 
-## How To Setup
+## How To Build 
+
+### Console
+
+command
 ```
-git clone git@git.csnzoo.com:hs040x/php-vrp-engine-server.git
-cd php-vrp-engine-server
-composer install
-docker-compose up
-```
-
-Then open `http://localhost:8080/`
-
-## How To Use
-
-Request 
-
-```
-curl -X POST \
-  http://localhost:8080/validation \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  -H 'cache-control: no-cache' \
-  -d 'lead_time=1'
+php console.php app:open.api.doc:generate
 ```
 
-Response
+output of complete `openapi yml` will be displayed in console.
 
-```json
-{
-    "status": false,
-    "failure_tags": [
-        "TEXT_IS_NOT_BLANK",
-        "IS_DIGIT",
-        "INVALID_LEAD_TIME"
-    ]
-}
+### Composer
+
+command
+```
+composer openapi
 ```
 
-## How To Contribute
-- Fork this repo
-- post an issue https://github.com/harryosmar/php-bootstrap/issues
-- create the PR(Pull Request) and wait for the review
+output
+```
+> ./vendor/bin/openapi --output openapi.yaml src
+```
 
+This will create `openapi.yaml` in root directory.

@@ -15,8 +15,7 @@
         "league/fractal": "^0.17.0",
         "phpcollection/phpcollection": "^0.5.0",
         "zendframework/zend-diactoros": "^1.7",
-        "harryosmar/php-restful-api-response": "v1.1.4",
-        "wayfair/php-cvs-engine": "dev-master"
+        "harryosmar/php-restful-api-response": "v1.1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -35,12 +34,7 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit -c phpunit.xml"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@git.csnzoo.com:hs040x/php-cvs-engine.git"
-        }
-    ]
+        "test": "./vendor/bin/phpunit -c phpunit.xml",
+        "openapi": "./vendor/bin/openapi --output openapi.yaml src"
+    }
 }

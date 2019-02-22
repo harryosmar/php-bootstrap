@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e78fa8b25bc351e7a0b7319f0325798",
+    "content-hash": "14b76cf4316b5748b6a04c76a72dc01b",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -743,36 +743,6 @@
                 "shim"
             ],
             "time": "2018-01-30T19:27:44+00:00"
-        },
-        {
-            "name": "wayfair/php-cvs-engine",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@git.csnzoo.com:hs040x/php-cvs-engine.git",
-                "reference": "37132dda5e887f4318990e02afe314857388f550"
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "autoload-dev": {
-                "classmap": [
-                    "tests/"
-                ]
-            },
-            "scripts": {
-                "test": [
-                    "./vendor/bin/phpunit -c phpunit.xml --coverage-text --coverage-clover=coverage.clover --debug"
-                ]
-            },
-            "description": "Centralized Validation Service Engine",
-            "time": "2019-01-29T17:38:33+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -2550,9 +2520,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "wayfair/php-cvs-engine": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
