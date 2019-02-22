@@ -1,13 +1,18 @@
 # Swagger openapi 3.0 Example
 
+* [Swagger.io Screenshot](#swagger.io-screenshot)
+* [Yaml Content](#yaml-content)
 * [How To Build](#how-to-build)
   * [Console](#console)
   * [Composer](#composer)
 * [How To Validate yml content](#how-to-validate-yml-content)
 * [Links](#links)
 
+## Swagger.io Screenshot
 
 ![swagger.io screenshot](https://github.com/harryosmar/php-bootstrap/blob/swagger/public/images/swagger.io.png)
+
+## Yaml Content
 
 ```yaml
 openapi: 3.0.0
@@ -94,7 +99,7 @@ command
 php console.php app:open.api.doc:generate
 ```
 
-output of complete `openapi yml` will be displayed in console.
+output of complete `openapi yml` will be displayed in console. Output should be like [this](#yaml-content).
 
 ### Composer
 
@@ -113,7 +118,7 @@ This will create `openapi.yaml` in root directory.
 ## How To Validate yml content
 
 1. Goto `https://editor.swagger.io/`
-2. Then replace the swaggerEditor content with the content of `openapi.yaml` file.
+2. Then replace the swaggerEditor content with the content of `openapi.yaml` file. The result should be like [this](#swagger.io-screenshot).
 
 ## Links
 - https://github.com/zircote/swagger-php/blob/master/README.md
