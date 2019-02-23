@@ -118,7 +118,7 @@ This will create `openapi.yaml` in root directory.
 ## How To Validate yml content
 
 1. Goto `https://editor.swagger.io/`
-2. Then replace the swaggerEditor content with the content of `openapi.yaml` file. The result should be like [this](#swagger.io-screenshot).
+2. Then replace the swaggerEditor content with the content of `openapi.yaml` file. The result should be like [this](##swaggerio-screenshot).
 
 ## Links
 - https://github.com/zircote/swagger-php/blob/master/README.md
