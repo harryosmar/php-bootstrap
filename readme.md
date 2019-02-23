@@ -1,6 +1,6 @@
 # Swagger openapi 3.0 Example
 
-* [Swagger.io Screenshot](#swagger.io-screenshot)
+* [Swagger.io Screenshot](##swaggerio-screenshot)
 * [Yaml Content](#yaml-content)
 * [How To Build](#how-to-build)
   * [Console](#console)
