@@ -63,6 +63,30 @@ class Routes
                 }
             );
 
+            $route->map(
+                'GET',
+                '/login',
+                function (ServerRequestInterface $request, Response $response) {
+                    // Create new Plates instance
+                    $templates = new \League\Plates\Engine(implode(DIRECTORY_SEPARATOR, [dirname(__FILE__), '..', 'resources', 'templates']));
+                    $response->getBody()->write(
+                        $templates->render('login')
+                    );
+                    return $response->withStatus(200);
+                }
+            );
+
+            $route->map(
+                'POST',
+                '/login',
+                function (ServerRequestInterface $request, Response $response) {
+                    $response->getBody()->write(
+                        sprintf('Hello, %s', $request->getParsedBody()['Username'])
+                    );
+                    return $response->withStatus(200);
+                }
+            );
+
         })->middleware(new textHTML());
     }
 }

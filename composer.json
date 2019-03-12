@@ -16,12 +16,14 @@
         "league/fractal": "^0.17.0",
         "phpcollection/phpcollection": "^0.5.0",
         "zendframework/zend-diactoros": "^1.7",
-        "harryosmar/php-restful-api-response": "v1.1.4"
+        "harryosmar/php-restful-api-response": "v1.1.4",
+        "league/plates": "^3.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "phpunit/phpunit": "~5.7",
+        "codeception/codeception": "^2.5"
     },
     "autoload": {
         "psr-4": {
@@ -34,6 +36,9 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit -c phpunit.xml"
+        "test": "./vendor/bin/codecept run --steps",
+        "acceptance-test": "./vendor/bin/codecept run acceptance --steps",
+        "unit-test": "./vendor/bin/codecept run unit --steps",
+        "functional-test": "./vendor/bin/codecept run functional --steps"
     }
 }
