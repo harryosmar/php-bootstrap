@@ -15,8 +15,11 @@ use PhpBootstrap\Middleware\DummyTokenChecker;
 use PhpBootstrap\Contracts\Response;
 use PhpBootstrap\Middleware\Response\applicationJSON;
 use PhpBootstrap\Middleware\Response\textHTML;
+use PhpCollection\Map;
 use Psr\Http\Message\ServerRequestInterface;
 use League\Route\RouteCollection;
+use Slim\HttpCache\CacheProvider;
+use Zend\Diactoros\Stream;
 
 class Routes
 {
@@ -46,6 +49,36 @@ class Routes
                     'sayHi'
                 ]
             )->middleware(new DummyTokenChecker());
+
+
+          $route->map(
+              'GET',
+              '/message',
+              function (ServerRequestInterface $request, Response $response) {
+                $cache   = new CacheProvider();
+                $params  = new Map($request->getQueryParams());
+
+                $message = 'this is a secret message';
+                $output  = $cache->allowCache(
+                    $response->withArray(['message' => $message]),
+                    'public',
+                    86400
+                );
+
+                switch ($params->get('cache_type')->getOrElse('')) {
+                  case 'expires' :
+                    return $cache->withExpires($output, time() + 5);
+                  case 'etag' :
+                    $tag = $request->getHeader('if-none-match');
+                    if ($tag === ['"'. md5($message) .'"']) {
+                      return $response->withStatus(304);
+                    }
+                    return $cache->withEtag($output, md5($message));
+                  default:
+                    return $output;
+                }
+              }
+          );
 
         })->middleware(new applicationJSON());
 
