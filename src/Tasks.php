@@ -9,7 +9,9 @@
 namespace PhpBootstrap;
 
 use League\Container\Container;
+use PhpBootstrap\Console\Consumer;
 use PhpBootstrap\Console\HelloWorld;
+use PhpBootstrap\Console\Producer;
 use Symfony\Component\Console\Application;
 
 class Tasks
@@ -21,5 +23,7 @@ class Tasks
     final public static function register(Application $application, Container $container)
     {
         $application->add(new HelloWorld());
+        $application->add(new Consumer());
+        $application->add(new Producer());
     }
 }

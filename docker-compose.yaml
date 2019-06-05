@@ -1,0 +1,57 @@
+version: '3.3'
+services:
+  # The Application
+  app:
+    build:
+      context: ./
+      dockerfile: docker/app.dockerfile
+    working_dir: /var/www
+    volumes:
+    - ./:/var/www
+  # The Web Server
+  web:
+    build:
+      context: ./
+      dockerfile: docker/web.dockerfile
+    working_dir: /var/www
+    ports:
+    - 8080:80
+  zk:
+    image: confluentinc/cp-zookeeper:5.2.1
+    container_name: 'zk'
+    environment:
+    - 'ZOOKEEPER_CLIENT_PORT=32181'
+    - 'ZOOKEEPER_TICK_TIME=2000'
+    - 'ZOOKEEPER_SYNC_LIMIT=2'
+  kafka:
+    image: confluentinc/cp-kafka:5.2.1
+    container_name: 'kafka'
+    depends_on:
+    - zk
+    environment:
+    - KAFKA_ZOOKEEPER_CONNECT=zk:32181
+    - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+    - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,LISTENER_DOCKER_NETWORK://localhost:29092,LISTENER_OUTSIDE://kafka:29094
+    - KAFKA_LISTENERS=PLAINTEXT://kafka:9092,LISTENER_DOCKER_NETWORK://localhost:29092,LISTENER_OUTSIDE://kafka:29094
+    - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,LISTENER_DOCKER_NETWORK:PLAINTEXT,LISTENER_OUTSIDE:PLAINTEXT
+    - KAFKA_INTER_BROKER_LISTENER_NAME=LISTENER_DOCKER_NETWORK
+    - KAFKA_BROKER_ID=2
+    - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    - KAFKA_CREATE_TOPICS="test:1:1"
+    - KAFKA_ADVERTISED_HOST_NAME=kafka
+    ports:
+    - '9092:9092'
+    - '29094:29094'
+  schema-registry:
+    image: confluentinc/cp-schema-registry:5.2.1
+    container_name: 'schema-registry'
+    depends_on:
+    - zk
+    - kafka
+    environment:
+    - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zk:32181
+    - SCHEMA_REGISTRY_HOST_NAME=localhost
+    - SCHEMA_REGISTRY_LISTENERS=http://localhost:8081
+    - SCHEMA_REGISTRY_DEBUG=true
+    ports:
+    - '8081:8081'
