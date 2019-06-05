@@ -12,6 +12,7 @@ use League\Container\Container;
 use PhpBootstrap\Console\Consumer;
 use PhpBootstrap\Console\HelloWorld;
 use PhpBootstrap\Console\Producer;
+use PhpBootstrap\Console\ProducerSync;
 use Symfony\Component\Console\Application;
 
 class Tasks
@@ -25,5 +26,6 @@ class Tasks
         $application->add(new HelloWorld());
         $application->add(new Consumer());
         $application->add(new Producer());
+        $application->add(new ProducerSync());
     }
 }
