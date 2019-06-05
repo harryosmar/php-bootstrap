@@ -45,7 +45,7 @@ class Consumer extends Command {
 
     $consumer->start(
         function ($topic, $part, $message) use ($output) {
-          $output->writeln($message);
+          $output->writeln(print_r($message, true));
         }
     );
   }

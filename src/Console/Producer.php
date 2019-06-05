@@ -55,7 +55,7 @@ class Producer extends Command {
 
     $producer->success(
         function ($result) use ($output) {
-          $output->writeln('SUCCESS:' . $result);
+          $output->writeln('SUCCESS:' . print_r($result, true));
         }
     );
 
