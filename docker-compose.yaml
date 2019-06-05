@@ -8,6 +8,17 @@ services:
     working_dir: /var/www
     volumes:
     - ./:/var/www
+  # consumer
+  consumer:
+    build:
+      context: ./
+      dockerfile: docker/consumer.dockerfile
+    working_dir: /var/www
+    volumes:
+    - ./:/var/www
+    depends_on:
+    - zk
+    - kafka
   # The Web Server
   web:
     build:
