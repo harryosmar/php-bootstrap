@@ -46,8 +46,9 @@ class ProducerSync extends Command {
           [
               [
                   'topic' => 'test',
-                  'value' => 'test....sync...message.' . $i,
+                  'value' => 'test0....sync...message.' . $i,
                   'key'   => '',
+                  'partId' => rand(0, 1)
               ],
           ]
       );
