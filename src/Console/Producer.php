@@ -28,43 +28,20 @@ class Producer extends Command {
    * @throws \Exception
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $logger = new Logger('my_logger');
-    $logger->pushHandler(new StreamHandler('/var/www/log/producer.log', Logger::DEBUG));
+    $rk = new \RdKafka\Producer();
 
-    $config = ProducerConfig::getInstance();
-    $config->setMetadataRefreshIntervalMs(10000);
-    $config->setMetadataBrokerList('kafka:9092');
-    $config->setBrokerVersion('1.0.0');
-    $config->setRequiredAck(1);
-    $config->setIsAsyn(false);
-    $config->setProduceInterval(500);
+    $rk->setLogLevel(LOG_DEBUG);
+    $rk->addBrokers('kafka:9092');
 
-    $producer = new \Kafka\Producer(
-        function () {
-          return [
-              [
-                  'topic' => 'test',
-                  'value' => 'test....message.',
-                  'key'   => 'testkey',
-              ],
-          ];
-        }
-    );
+    $topic = $rk->newTopic('test');
 
-    $producer->setLogger($logger);
+    for ($i = 0; $i < 10; $i++) {
+      $topic->produce(RD_KAFKA_PARTITION_UA, 0, "Message $i");
+      $rk->poll(0);
+    }
 
-    $producer->success(
-        function ($result) use ($output) {
-          $output->writeln('SUCCESS:' . print_r($result, true));
-        }
-    );
-
-    $producer->error(
-        function ($errorCode) use ($output) {
-          $output->writeln('ERROR:' . $errorCode);
-        }
-    );
-
-    $producer->send(true);
+    while ($rk->getOutQLen() > 0) {
+      $rk->poll(50);
+    }
   }
 }

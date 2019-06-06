@@ -26,6 +26,5 @@ class Tasks
         $application->add(new HelloWorld());
         $application->add(new Consumer());
         $application->add(new Producer());
-        $application->add(new ProducerSync());
     }
 }

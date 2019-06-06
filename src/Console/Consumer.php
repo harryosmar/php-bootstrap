@@ -28,25 +28,70 @@ class Consumer extends Command {
    * @throws \Exception
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $logger = new Logger('my_logger');
-    $logger->pushHandler(new StreamHandler('/var/www/log/consumer.log', Logger::DEBUG));
+    $conf = new \RdKafka\Conf();
 
-    $config = ConsumerConfig::getInstance();
-    $config->setMetadataRefreshIntervalMs(10000);
-    $config->setMetadataBrokerList('kafka:9092');
-    $config->setGroupId('test');
-    $config->setBrokerVersion('1.0.0');
-    $config->setTopics(['test']);
-    $consumer = new \Kafka\Consumer();
+    // Set a rebalance callback to log partition assignments (optional)
+    $conf->setRebalanceCb(function (\RdKafka\KafkaConsumer $kafka, $err, array $partitions = null) use ($output) {
+      switch ($err) {
+        case RD_KAFKA_RESP_ERR__ASSIGN_PARTITIONS:
+          $output->write('Assign: ');
+          $output->writeln(print_r($partitions, true));
+          $kafka->assign($partitions);
+          break;
 
-    $consumer->setLogger($logger);
+        case RD_KAFKA_RESP_ERR__REVOKE_PARTITIONS:
+          $output->write('Revoke: ');
+          $output->writeln(print_r($partitions, true));
+          $kafka->assign(NULL);
+          break;
 
-    $output->writeln('Listening for message');
+        default:
+          throw new \Exception($err);
+      }
+    });
 
-    $consumer->start(
-        function ($topic, $part, $message) use ($output) {
-          $output->writeln(print_r($message, true));
-        }
-    );
+    // Configure the group.id. All consumer with the same group.id will consume
+    // different partitions.
+    $conf->set('group.id', 'myConsumerGroup');
+
+    // Initial list of Kafka brokers
+    $conf->set('metadata.broker.list', 'kafka:9092');
+
+    $topicConf = new \RdKafka\TopicConf();
+
+
+    // Set where to start consuming messages when there is no initial offset in
+    // offset store or the desired offset is out of range.
+    // 'smallest': start from the beginning
+    $topicConf->set('auto.offset.reset', 'smallest');
+
+    // Set the configuration to use for subscribed/assigned topics
+    $conf->setDefaultTopicConf($topicConf);
+
+    $consumer = new \RdKafka\KafkaConsumer($conf);
+
+    // Subscribe to topic 'test'
+    $consumer->subscribe(['test']);
+
+    $output->write('Waiting for partition assignment... (make take some time when');
+    $output->writeln('quickly re-joining the group after leaving it.)');
+
+    while (true) {
+      $message = $consumer->consume(120*1000);
+      switch ($message->err) {
+        case RD_KAFKA_RESP_ERR_NO_ERROR:
+          $output->writeln($message);
+          break;
+        case RD_KAFKA_RESP_ERR__PARTITION_EOF:
+          $output->writeln('No more messages; will wait for more');
+          break;
+        case RD_KAFKA_RESP_ERR__TIMED_OUT:
+          $output->writeln('Timed out');
+          break;
+        default:
+          throw new \Exception($message->errstr(), $message->err);
+          break;
+      }
+    }
   }
 }
