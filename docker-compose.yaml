@@ -9,26 +9,26 @@ services:
     volumes:
     - ./:/var/www
   # consumer
-  consumer:
-    build:
-      context: ./
-      dockerfile: docker/consumer.dockerfile
-    working_dir: /var/www
-    volumes:
-    - ./:/var/www
-    depends_on:
-    - zk
-    - kafka
-  consumer2:
-    build:
-      context: ./
-      dockerfile: docker/consumer.dockerfile
-    working_dir: /var/www
-    volumes:
-    - ./:/var/www
-    depends_on:
-    - zk
-    - kafka
+#  consumer:
+#    build:
+#      context: ./
+#      dockerfile: docker/consumer.dockerfile
+#    working_dir: /var/www
+#    volumes:
+#    - ./:/var/www
+#    depends_on:
+#    - zk
+#    - kafka
+#  consumer2:
+#    build:
+#      context: ./
+#      dockerfile: docker/consumer.dockerfile
+#    working_dir: /var/www
+#    volumes:
+#    - ./:/var/www
+#    depends_on:
+#    - zk
+#    - kafka
   # The Web Server
   web:
     build:
@@ -76,3 +76,49 @@ services:
     - SCHEMA_REGISTRY_DEBUG=true
     ports:
     - '8081:8081'
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect:5.2.1
+    container_name: 'kafka-connect'
+    build:
+      context: ./
+      dockerfile: docker/kafka-connect.dockerfile
+    depends_on:
+    - zk
+    - kafka
+    environment:
+    - CONNECT_BOOTSTRAP_SERVERS=kafka:9092
+    - CONNECT_GROUP_ID="quickstart"
+    - CONNECT_CONFIG_STORAGE_TOPIC="quickstart-config"
+    - CONNECT_OFFSET_STORAGE_TOPIC="quickstart-offsets"
+    - CONNECT_STATUS_STORAGE_TOPIC="quickstart-status"
+    - CONNECT_KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+    - CONNECT_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+    - CONNECT_INTERNAL_KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+    - CONNECT_INTERNAL_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+    - CONNECT_REST_ADVERTISED_HOST_NAME="localhost"
+    - CONNECT_PLUGIN_PATH=/usr/share/java
+#  mssql:
+#    image: 'microsoft/mssql-server-linux:2017-latest'
+#    container_name: mssql
+#    ports:
+#    - '1433:1433'
+#    environment:
+#    - ACCEPT_EULA=Y
+#    - 'SA_PASSWORD=EmergingSystems1'
+#  control-center:
+#    image: confluentinc/cp-enterprise-control-center:5.2.1
+#    container_name: 'control-center'
+#    depends_on:
+#    - zk
+#    - kafka
+#    environment:
+#    - CONTROL_CENTER_ZOOKEEPER_CONNECT=zk:32181
+#    - CONTROL_CENTER_BOOTSTRAP_SERVERS=kafka:9092
+#    - CONTROL_CENTER_REPLICATION_FACTOR=1
+#    - CONTROL_CENTER_CONNECT_CLUSTER=http://localhost:28082
+#    ulimits:
+#      nofile:
+#        soft: 16384
+#        hard: 16384
+#    ports:
+#    - '28082:28082'
